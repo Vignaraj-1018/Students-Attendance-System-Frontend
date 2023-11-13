@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AttendanceServiceService } from '../attendance-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -8,7 +9,7 @@ import { AttendanceServiceService } from '../attendance-service.service';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private attendanceService: AttendanceServiceService) { }
+  constructor(private attendanceService: AttendanceServiceService, private router: Router) { }
 
   userEmail:any;
   userpwd:any;
@@ -24,15 +25,18 @@ export class LoginPageComponent implements OnInit {
     this.userpwd = event.target.value;
   }
 
-  submitLogin(){
+  submitLogin(event){
+    event.preventDefault();
     console.log(this.userEmail,this.userpwd);
     let userDetails = {
       "userEmail": this.userEmail,
       "password": this.userpwd
     }
 
-    this.attendanceService.loginUser(userDetails).toPromise().then((resp)=>{
+    this.attendanceService.loginUser(userDetails).toPromise().then((resp:any)=>{
       console.log(resp);
+      localStorage.setItem("userId",resp.userId);
+      this.router.navigateByUrl("/dashbaord");
     })
     .catch((e)=>{
       console.log(e);
