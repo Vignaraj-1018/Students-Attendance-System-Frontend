@@ -1,0 +1,20 @@
+.main-container{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-title{
+    display: flex;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.nav-container{
+    display: flex;
+    padding: 5px;
+    cursor: pointer;
+}

@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+
+$primary-color: #1640D6;
+$secondary-color: #A8DF8E;
+$button-color: #FF6C22;
+$text-color: #000000;
+
+body{
+    margin: 0;
+    color: $text-color;
+    font-family: 'poppins';
+}

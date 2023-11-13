@@ -1,0 +1,21 @@
+<div class="main-container">
+    <div class="container">
+        <div class="title">
+            Login
+        </div>
+        <div class="prompt-container">
+            <span class="prompt-text">Email:</span>
+            <input type="text" (change)="onEmailChange($event)">
+        </div>
+        <div class="prompt-container">
+            <span class="prompt-text">Password:</span>
+            <input type="password" (change)="onPwdChange($event)">
+        </div>
+        <div class="footer-container">
+            <div class="login-btn" (click)="submitLogin()">Login</div>
+            <span class="footer-content">New User?  &nbsp; 
+                <span class="signup-text">Sign Up</span>
+            </span>
+        </div>
+    </div>
+</div>
