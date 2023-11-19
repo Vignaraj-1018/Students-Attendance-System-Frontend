@@ -15,9 +15,13 @@ export class AttendanceServiceService {
 
   loginUser(userDetails:any){
     const endPoint = this.backendUrl + EndPoints.LOGIN_USER;
-    console.log(this.backendUrl);
-    console.log(endPoint);
     return this.http.post(endPoint,userDetails);
+  }
+
+  getAttendance(userId:any){
+    let param = "?userId=" + userId;
+    const endPoint = this.backendUrl + EndPoints.USER_ALL_ATTENDANCE + param;
+    return this.http.get(endPoint);
   }
   
 }

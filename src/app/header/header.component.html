@@ -1,8 +1,23 @@
 <div class="main-container">
-    <div class="header-title"  (click)="gotoHome()">
-        Student Attendance
-    </div>
-    <div class="nav-container" (click)="gotoLogin()">
-        Login
+    <div class="container">
+        <div class="header-title"  (click)="gotoHome()">
+            Student Attendance
+        </div>
+        <div class="nav-container">
+            <div class="login" (click)="gotoLogin()" *ngIf="!userProfile">
+                Login
+            </div>
+            <ng-container *ngIf="userProfile">
+                <div class="dashboard-text"  (click)="gotoDashboard()">
+                    Dashboard
+                </div>
+                <div class="dashboard-text"  (click)="signOut()">
+                    Sign Out
+                </div>
+                <div class="profile">
+                    {{userProfile}}
+                </div>
+            </ng-container>
+        </div>
     </div>
 </div>

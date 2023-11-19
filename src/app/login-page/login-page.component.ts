@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AttendanceServiceService } from '../attendance-service.service';
 import { Router } from '@angular/router';
+import { HelperService } from '../helper.service';
 
 @Component({
   selector: 'app-login-page',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private attendanceService: AttendanceServiceService, private router: Router) { }
+  constructor(private attendanceService: AttendanceServiceService, private router: Router, private helperService: HelperService) { }
 
   userEmail:any;
   userpwd:any;
@@ -36,7 +37,10 @@ export class LoginPageComponent implements OnInit {
     this.attendanceService.loginUser(userDetails).toPromise().then((resp:any)=>{
       console.log(resp);
       localStorage.setItem("userId",resp.userId);
-      this.router.navigateByUrl("/dashbaord");
+      localStorage.setItem("userInfo",JSON.stringify(resp));
+      this.helperService.userInfo = resp;
+      this.helperService.triggerFunctionSubject.next("userLoggedIn");
+      this.router.navigateByUrl("/dashboard");
     })
     .catch((e)=>{
       console.log(e);
