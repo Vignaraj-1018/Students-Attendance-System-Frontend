@@ -33,6 +33,16 @@ export class AttendanceServiceService {
     return this.http.post(endPoint,userDetails,{responseType:'text/json'});
   }
 
+  forgotPasswordRequest(userDetails:any){
+    const endPoint = this.backendUrl + EndPoints.REQUEST_FORGOT_PASSWORD;
+    return this.http.post(endPoint,userDetails,{responseType:'text/json'});
+  }
+
+  resetPassword(userDetails:any){
+    const endPoint = this.backendUrl + EndPoints.RESET_PASSWORD;
+    return this.http.post(endPoint,userDetails,{responseType:'text/json'});
+  }
+
   getAttendance(userId:any){
     let param = "?userId=" + userId;
     const endPoint = this.backendUrl + EndPoints.USER_ALL_ATTENDANCE + param;

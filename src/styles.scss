@@ -15,6 +15,14 @@ body{
     display: flex;
 }
 
+.flex-column{
+    flex-direction: column !important;
+}
+
+.flex-row{
+    flex-direction: row !important;
+}
+
 @for $i from 1 through 100 {
     .gap-#{$i} { 
         gap: $i + px;

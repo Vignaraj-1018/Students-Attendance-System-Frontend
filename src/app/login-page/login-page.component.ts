@@ -10,11 +10,15 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
   styleUrls: ['./login-page.component.scss']
 })
 export class LoginPageComponent implements OnInit {
+  page: number = 1;
 
   constructor(private attendanceService: AttendanceServiceService, private router: Router, private helperService: HelperService, private ngxService: NgxUiLoaderService) { }
 
   userEmail:any;
   userpwd:any;
+  userId:any;
+  userOtp:any;
+  otpResent:boolean = false;
 
   passwordVisible: boolean = false;
 
@@ -27,6 +31,10 @@ export class LoginPageComponent implements OnInit {
 
   onPwdChange(event: any) {
     this.userpwd = event.target.value;
+  }
+
+  onOTPChange(event: any) {
+    this.userOtp = event.target.value;
   }
 
   submitLogin(event){
@@ -57,6 +65,98 @@ export class LoginPageComponent implements OnInit {
 
   gotoSignup(){
     this.router.navigateByUrl("/signup");
+  }
+
+  gotoForgotPassword(){
+    this.page = 2;
+  }
+
+  forgotPasswordRequest(event){
+    event.preventDefault();
+    this.ngxService.start();
+    console.log(this.userEmail,this.userpwd);
+    let userDetails = {
+      "userEmail": this.userEmail
+    }
+
+    this.attendanceService.forgotPasswordRequest(userDetails).toPromise().then((resp: any)=>{
+      console.log(resp);
+      this.ngxService.stop();
+      this.userId = JSON.parse(resp).userId;
+      this.page = 3;
+    })
+    .catch((e)=>{
+      console.log(e);
+      alert(e.error);
+    });
+  }
+
+  validateOTP(e){
+    e.preventDefault();
+    console.log("here", this.userOtp);
+    let postObj = {
+      userId: this.userId,
+      OTP: this.userOtp
+    }
+
+    this.ngxService.start();
+    this.attendanceService.submitOtp(postObj).toPromise()
+    .then((resp:any)=>{
+      this.ngxService.stop();
+      console.log(resp,1);
+      this.page = 4;
+    })
+    .catch((err)=>{
+      this.ngxService.stop();
+      console.log(err,2);
+      if(err.error == "User Already Authenticated"){
+        this.page = 4;
+      }
+      alert(err.error);
+    })
+  }
+
+  resendOtp(){
+    console.log("resending otp...");
+    
+    let postObj = {
+      userEmail: this.userEmail
+    }
+    
+    this.ngxService.start();
+    this.attendanceService.reSendOtp(postObj).toPromise()
+    .then((resp)=>{
+      this.otpResent = true;
+      this.ngxService.stop();
+      console.log(resp,1);
+      alert(resp+ "\nPLease Check the Mail")
+    })
+    .catch((err)=>{
+      this.ngxService.stop();
+      console.log(err,2);
+      alert(err.error);
+    });
+  }
+
+  resetPassword(e){
+    e.preventDefault();
+    let postObj = {
+      userId: this.userId,
+      password: this.userpwd
+    }
+
+    this.ngxService.start();
+    this.attendanceService.resetPassword(postObj).toPromise()
+    .then((resp:any)=>{
+      this.ngxService.stop();
+      console.log(resp,1);
+      this.page = 1;
+    })
+    .catch((err)=>{
+      this.ngxService.stop();
+      console.log(err,2);
+      alert(err.error);
+    })
   }
 
 }
