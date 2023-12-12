@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AttendanceServiceService } from '../attendance-service.service';
 import { Router } from '@angular/router';
 import { HelperService } from '../helper.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-login-page',
@@ -10,10 +11,12 @@ import { HelperService } from '../helper.service';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor(private attendanceService: AttendanceServiceService, private router: Router, private helperService: HelperService) { }
+  constructor(private attendanceService: AttendanceServiceService, private router: Router, private helperService: HelperService, private ngxService: NgxUiLoaderService) { }
 
   userEmail:any;
   userpwd:any;
+
+  passwordVisible: boolean = false;
 
   ngOnInit() {
   }
@@ -33,6 +36,8 @@ export class LoginPageComponent implements OnInit {
       "userEmail": this.userEmail,
       "password": this.userpwd
     }
+    
+    this.ngxService.start();
 
     this.attendanceService.loginUser(userDetails).toPromise().then((resp:any)=>{
       console.log(resp);
@@ -41,11 +46,17 @@ export class LoginPageComponent implements OnInit {
       this.helperService.userInfo = resp;
       this.helperService.triggerFunctionSubject.next("userLoggedIn");
       this.router.navigateByUrl("/dashboard");
+      this.ngxService.stop();
     })
     .catch((e)=>{
+      this.ngxService.stop();
       console.log(e);
-      alert(e);
+      alert(e.error);
     })
+  }
+
+  gotoSignup(){
+    this.router.navigateByUrl("/signup");
   }
 
 }

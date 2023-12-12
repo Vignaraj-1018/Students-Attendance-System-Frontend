@@ -1,3 +1,31 @@
 <div class="main-container">
-    {{userInfo.name}}
+    <div class="header-container">
+        Hi, {{userInfo.name}}
+    </div>
+    <div class="not-auth-prompt-container" *ngIf="page === 1">
+        <div class="not-auth-prompt-text">
+            <span class="d-flex">User is not Authenticated!</span>
+            <span class="d-flex gap-4">Click here to <span class="prompt-click-text" (click)="gotoOtpPrompt()">continue</span>.</span>
+        </div>
+    </div>
+    <div class="d-flex" *ngIf="page === 2">
+        <form class="otp-prompt-container" (submit)="submitOtp($event)">
+            <div class="otp-enter-prompt">
+                <span class="d-flex">Enter the OTP from the Mail</span>
+                <input type="text" class="d-flex" (change)="onInputOtp($event)">
+            </div>
+            <div class="prompt-click-text text-12" (click)="resendOtp()" *ngIf="!otpResent">
+                Resend OTP!
+            </div>
+            <div class="d-flex text-12" *ngIf="otpResent">
+                Resend Successfull! Check Mail.
+            </div>
+            <div class="otp-submit-btn">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="dashboard-container" *ngIf="page === 3">
+        Here is the Analytics of Your Attendance.
+    </div>
 </div>

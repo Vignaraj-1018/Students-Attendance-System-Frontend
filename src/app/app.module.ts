@@ -8,6 +8,8 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SignupPageComponent } from './signup-page/signup-page.component';
+import { NgxUiLoaderModule  } from 'ngx-ui-loader';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     LoginPageComponent,
     HeaderComponent,
     HomeComponent,
-    DashboardComponent
+    DashboardComponent,
+    SignupPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxUiLoaderModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

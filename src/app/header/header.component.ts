@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
     this.userInfo = this.helperService.userInfo;
     this.getUserName();
     this.helperService.triggerFunctionSubject.subscribe((prompt)=>{
-      if(prompt === "userLoggedIn"){
+      if(prompt === "userLoggedIn" || prompt === "userSignedUp"){
         this.userInfo = this.helperService.userInfo;
         this.getUserName();
       }

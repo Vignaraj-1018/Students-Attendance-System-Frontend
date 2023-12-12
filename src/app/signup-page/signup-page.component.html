@@ -1,9 +1,13 @@
 <div class="main-container">
     <div class="container">
         <div class="title">
-            Login
+            Sign Up
         </div>
-        <form class="form-container" (submit)="submitLogin($event)">
+        <form class="form-container" (submit)="submitSignup($event)">
+            <div class="prompt-container">
+                <span class="prompt-text">Name:</span>
+                <input type="text" (change)="onNameChange($event)">
+            </div>
             <div class="prompt-container">
                 <span class="prompt-text">Email:</span>
                 <input type="text" (change)="onEmailChange($event)">
@@ -17,10 +21,7 @@
                 </div>
             </div>
             <div class="footer-container">
-                <input class="login-btn" type="submit" value="Login">
-                <span class="footer-content">New User?  &nbsp; 
-                    <span class="signup-text" (click)="gotoSignup()">Sign Up</span>
-                </span>
+                <input class="login-btn" type="submit" value="Sign Up">
             </div>
         </form>
     </div>

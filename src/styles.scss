@@ -2,11 +2,27 @@
 
 $primary-color: #1640D6;
 $secondary-color: #A8DF8E;
-$button-color: #FF6C22;
+$button-color: #a3a3a3;
 $text-color: #000000;
 
 body{
     margin: 0;
     color: $text-color;
     font-family: 'poppins';
+}
+
+.d-flex{
+    display: flex;
+}
+
+@for $i from 1 through 100 {
+    .gap-#{$i} { 
+        gap: $i + px;
+        }
+}
+
+@for $i from 1 through 100 {
+    .text-#{$i} { 
+        font-size: $i + px;
+        }
 }
