@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
     if(this.userInfo){
       this.helperService.userInfo = this.userInfo;
-      this.router.navigateByUrl('/dashboard');
+      // this.router.navigateByUrl('/dashboard');
     }
   }
   

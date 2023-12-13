@@ -48,5 +48,10 @@ export class AttendanceServiceService {
     const endPoint = this.backendUrl + EndPoints.USER_ALL_ATTENDANCE + param;
     return this.http.get(endPoint);
   }
+
+  updateAttendance(attendance:any){
+    const endPoint = this.backendUrl + EndPoints.USER_UPDATE_ATTENDANCE;
+    return this.http.put(endPoint,attendance);
+  }
   
 }

@@ -8,5 +8,6 @@ export class EndPoints{
     public static RESET_PASSWORD = "/resetPassword";
 
     public static USER_ALL_ATTENDANCE = "/get/user/attendance";
+    public static USER_UPDATE_ATTENDANCE = "/update/attendance";
 
 }
