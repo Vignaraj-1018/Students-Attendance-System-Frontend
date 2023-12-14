@@ -53,7 +53,7 @@
                 <div class="subject-row">
                     <div class="d-flex gap-5">
                         <span class="subject-text" *ngIf="!subject.editEnabled">{{subject.name}}</span>
-                        <input type="text" [value]="subject.name" *ngIf="subject.editEnabled" (change)="onSubjectNameChange($event,subject)">
+                        <input type="text" placeholder="Add new Subject" [value]="subject.name" *ngIf="subject.editEnabled" (change)="onSubjectNameChange($event,subject)" (blur)="subject.editEnabled = false">
                         <img src="assets/icons/pencil-icon.svg" alt="edit" class="subject-icons" (click)="editSubject(subject)" *ngIf="!subject.editEnabled">
                         <img src="assets/icons/tick-icon.svg" alt="Ok" class="subject-icons" (click)="subject.editEnabled = false" *ngIf="subject.editEnabled">
                         <img src="assets/icons/trash-icon.svg" alt="edit" class="subject-icons" (click)="deleteSubject(subject)">
@@ -97,6 +97,7 @@
             </div>
             <div class="subject-container add-subject" (click)="onAddNewSubject()">
                 <img src="assets/icons/add-more-icon.svg" alt="Add New Subject" class="d-flex">
+                <span class="d-flex">Add New Subject</span>
             </div>
         </div>
     </div>

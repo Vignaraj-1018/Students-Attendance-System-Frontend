@@ -207,8 +207,10 @@ export class DashboardComponent implements OnInit {
           element.totalCount++;
         }
         else{
-          element.presentCount--;
-          element.totalCount--;
+          if(element.presentCount!==0){
+            element.presentCount--;
+            element.totalCount--;
+          }
         }
       }
     });
@@ -224,7 +226,9 @@ export class DashboardComponent implements OnInit {
           element.totalCount++;
         }
         else{
-          element.totalCount--;
+          if(element.totalCount!==0){
+            element.totalCount--;
+          }
         }
       }
     });
@@ -311,7 +315,7 @@ export class DashboardComponent implements OnInit {
   }
 
   disableAddSemester(){
-    if(this.newSemester<=0 || this.semesterList.includes(this.newSemester)){
+    if(this.newSemester<=0 || this.semesterList.includes(this.newSemester) || this.newSemester == undefined){
       alert("Invalid new semester");
     }
     else{
