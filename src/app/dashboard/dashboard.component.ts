@@ -240,7 +240,7 @@ export class DashboardComponent implements OnInit {
           element.totalCount++;
         }
         else{
-          if(element.totalCount!==0){
+          if((element.totalCount - element.presentCount)!==0){
             element.totalCount--;
           }
         }
