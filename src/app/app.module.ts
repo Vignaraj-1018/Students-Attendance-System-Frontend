@@ -10,7 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
 import { NgxUiLoaderModule  } from 'ngx-ui-loader';
-
+import { ChartComponent } from './chart/chart.component';
+import { ChartsModule, ThemeService } from 'ng2-charts';
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,15 +19,17 @@ import { NgxUiLoaderModule  } from 'ngx-ui-loader';
     HeaderComponent,
     HomeComponent,
     DashboardComponent,
-    SignupPageComponent
+    SignupPageComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgxUiLoaderModule 
+    NgxUiLoaderModule,
+    ChartsModule
   ],
-  providers: [],
+  providers: [ThemeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

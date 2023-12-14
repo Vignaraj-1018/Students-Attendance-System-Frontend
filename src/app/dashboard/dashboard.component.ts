@@ -12,6 +12,9 @@ import {v4 as uuidv4} from 'uuid';
 })
 export class DashboardComponent implements OnInit {
   newSemester: any;
+  chartDataList: any[];
+  chartLabelList: any[];
+  chartShow: boolean = false;
   
   constructor(private helperService: HelperService, private attendanceService: AttendanceServiceService, private ngxService: NgxUiLoaderService) { }
   
@@ -196,6 +199,17 @@ export class DashboardComponent implements OnInit {
     });
 
     console.log(this.currentAttendance);
+    this.prepareChartData();
+  }
+  prepareChartData() {
+    this.chartDataList = [];
+    this.chartLabelList = [];
+    this.currentAttendance.subjectList.forEach(element => {
+      this.chartLabelList.push(element.name);
+      this.chartDataList.push(this.getPercentForChart(element));
+    });
+    console.log(this.chartDataList,this.chartLabelList);
+    this.chartShow = true;
   }
 
   onAddPresent(subject,type){
@@ -239,6 +253,7 @@ export class DashboardComponent implements OnInit {
   updateAttendance(){
     this.attendanceService.updateAttendance(this.currentAttendance).toPromise().then((resp)=>{
       console.log(resp);
+      this.prepareChartData();
     })
     .catch((err) => {
       console.log(err);
@@ -307,6 +322,15 @@ export class DashboardComponent implements OnInit {
     }
     else{
       return '-';
+    }
+  }
+
+  getPercentForChart(subject){
+    if(subject.totalCount){
+      return ((subject.presentCount/subject.totalCount)*100).toFixed(2);
+    }
+    else{
+      return null;
     }
   }
 

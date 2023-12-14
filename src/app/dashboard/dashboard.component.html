@@ -48,6 +48,7 @@
                 </div>
             </div>
         </div>
+        <app-chart *ngIf="chartShow" [labelList]="chartLabelList" [dataList]="chartDataList"></app-chart>
         <div class="attendance-container">
             <div class="subject-container" *ngFor="let subject of currentAttendance?.subjectList">
                 <div class="subject-row">
