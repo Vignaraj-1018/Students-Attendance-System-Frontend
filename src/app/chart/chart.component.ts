@@ -7,12 +7,14 @@ import { Label, Color } from 'ng2-charts';
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit {
+  backgroundColor: string[]=[];
 
   constructor() { }
 
   @Input() labelList:any;
   @Input() dataList:any;
 
+  backgroundColorTemplate = {'0-75':'#f75050','76-100':'#5252eb'};
 
   
   public lineChartData: ChartDataSets[];
@@ -29,12 +31,7 @@ export class ChartComponent implements OnInit {
       ]
     }
   };
-  public lineChartColors: Color[] = [
-    {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
-    },
-  ];
+  public lineChartColors: Color[] = [];
   public lineChartLegend = false;
   public lineChartType = 'bar';
   public lineChartPlugins = [];
@@ -45,12 +42,27 @@ export class ChartComponent implements OnInit {
   }
   
   showChart() {
+    this.backgroundColor = [];
+    this.dataList.forEach(element => {
+      if(parseInt(element)>=75){
+        this.backgroundColor.push(this.backgroundColorTemplate['76-100'])
+      }
+      else{
+        this.backgroundColor.push(this.backgroundColorTemplate['0-75'])
+      }
+    });
     this.lineChartData = [
       { 
         data: this.dataList
       }
     ]
     this.lineChartLabels = this.labelList;
+    this.lineChartColors=[
+      {
+        borderColor: 'black',
+        backgroundColor: this.backgroundColor,
+      },
+    ]
   }
   ngOnChanges(changes: SimpleChanges) {
     this.showChart();
