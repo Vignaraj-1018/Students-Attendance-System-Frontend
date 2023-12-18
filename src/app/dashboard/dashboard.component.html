@@ -47,51 +47,61 @@
                     <img src="assets/icons/xmark-icon.svg" alt="Ok" class="subject-icons" (click)="this.addSemesterEnable = false" *ngIf="addSemesterEnable">
                 </div>
             </div>
+            <div class="header-filter-container">
+                <span class="d-flex">Last Modified Date:</span>
+                <input type="date" [value]="currentAttendance?.lastModifiedDate | date : 'yyyy-MM-dd'" (change)="onSelectDate($event)" class="d-flex">
+                <span class="date-help-content">Change this Date Manually to Keep Track</span>
+            </div>
         </div>
         <app-chart *ngIf="chartShow" [labelList]="chartLabelList" [dataList]="chartDataList"></app-chart>
-        <div class="attendance-container">
-            <div class="subject-container" *ngFor="let subject of currentAttendance?.subjectList">
-                <div class="subject-row">
-                    <div class="d-flex gap-5">
-                        <span class="subject-text" *ngIf="!subject.editEnabled">{{subject.name}}</span>
-                        <input type="text" placeholder="Add new Subject" [value]="subject.name" *ngIf="subject.editEnabled" (change)="onSubjectNameChange($event,subject)" (blur)="subject.editEnabled = false">
-                        <img src="assets/icons/pencil-icon.svg" alt="edit" class="subject-icons" (click)="editSubject(subject)" *ngIf="!subject.editEnabled">
-                        <img src="assets/icons/tick-icon.svg" alt="Ok" class="subject-icons" (click)="subject.editEnabled = false" *ngIf="subject.editEnabled">
-                        <img src="assets/icons/trash-icon.svg" alt="edit" class="subject-icons" (click)="deleteSubject(subject)">
-                    </div>
-                    <div class="d-flex">
-                        <span class="subject-text">{{getPercentToDisplay(subject)}}%</span>
-                    </div>
+        <div class="attendance-container" droppable>
+            <div class="subject-container-main" draggable="true" (dragover)="allowDrop($event)" (drop)="onDropSubject($event,subject)" (drag)="onDragSubject($event,subject)" *ngFor="let subject of currentAttendance?.subjectList">
+                <div class="subject-side-container">
+                    <img src="assets/icons/drag-icon.svg" alt="Drag Subject" class="d-flex">
                 </div>
-                <div class="subject-row">
-                    <div class="d-flex gap-10">
-                        <span class="subject-text">Present: </span> 
-                        <div class="d-flex">{{subject.presentCount}}</div>
-                    </div>
-                    <div class="d-flex gap-10">
-                        <span class="subject-text">Absent: </span> 
-                        <div class="d-flex">{{subject.totalCount - subject.presentCount}}</div>
-                    </div>
-                    <div class="d-flex gap-10">
-                        <span class="subject-text">Total: </span> 
-                        <div class="d-flex">{{subject.totalCount}}</div>
-                    </div>
-                </div>
-                <div class="subject-row">
-                    <div class="subject-btn-container">
-                        <div class="present-btn" (click)="onAddPresent(subject,1)">
-                            Add Present
+                <div class="subject-container">
+                    <div class="subject-row">
+                        <div class="d-flex gap-5">
+                            <span class="subject-text" *ngIf="!subject.editEnabled">{{subject.name}}</span>
+                            <input type="text" placeholder="Add new Subject" [value]="subject.name" *ngIf="subject.editEnabled" (change)="onSubjectNameChange($event,subject)" (blur)="subject.editEnabled = false">
+                            <img src="assets/icons/pencil-icon.svg" alt="edit" class="subject-icons" (click)="editSubject(subject)" *ngIf="!subject.editEnabled">
+                            <img src="assets/icons/tick-icon.svg" alt="Ok" class="subject-icons" (click)="subject.editEnabled = false" *ngIf="subject.editEnabled">
+                            <img src="assets/icons/trash-icon.svg" alt="edit" class="subject-icons" (click)="deleteSubject(subject)">
                         </div>
-                        <div class="present-text-btn" (click)="onAddPresent(subject,0)">
-                            Decrease
+                        <div class="d-flex">
+                            <span class="subject-text">{{getPercentToDisplay(subject)}}%</span>
                         </div>
                     </div>
-                    <div class="subject-btn-container">
-                        <div class="absent-btn" (click)="onAddAbsent(subject,1)">
-                            Add Absent
+                    <div class="subject-row">
+                        <div class="d-flex gap-10">
+                            <span class="subject-text">Present: </span> 
+                            <div class="d-flex">{{subject.presentCount}}</div>
                         </div>
-                        <div class="absent-text-btn" (click)="onAddAbsent(subject,0)">
-                            Decrease
+                        <div class="d-flex gap-10">
+                            <span class="subject-text">Absent: </span> 
+                            <div class="d-flex">{{subject.totalCount - subject.presentCount}}</div>
+                        </div>
+                        <div class="d-flex gap-10">
+                            <span class="subject-text">Total: </span> 
+                            <div class="d-flex">{{subject.totalCount}}</div>
+                        </div>
+                    </div>
+                    <div class="subject-row">
+                        <div class="subject-btn-container">
+                            <div class="present-btn" (click)="onAddPresent(subject,1)">
+                                Add Present
+                            </div>
+                            <div class="present-text-btn" (click)="onAddPresent(subject,0)">
+                                Decrease
+                            </div>
+                        </div>
+                        <div class="subject-btn-container">
+                            <div class="absent-btn" (click)="onAddAbsent(subject,1)">
+                                Add Absent
+                            </div>
+                            <div class="absent-text-btn" (click)="onAddAbsent(subject,0)">
+                                Decrease
+                            </div>
                         </div>
                     </div>
                 </div>

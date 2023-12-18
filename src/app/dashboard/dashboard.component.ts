@@ -15,6 +15,8 @@ export class DashboardComponent implements OnInit {
   chartDataList: any[];
   chartLabelList: any[];
   chartShow: boolean = false;
+  draggedSubject: any;
+  droppedSubject: any;
   
   constructor(private helperService: HelperService, private attendanceService: AttendanceServiceService, private ngxService: NgxUiLoaderService) { }
   
@@ -305,6 +307,7 @@ export class DashboardComponent implements OnInit {
       academicYear: this.selectedAcademicYear,
       semester:this.selectedSemester,
       subjectList:[],
+      lastModifiedDate:null,
       userId: this.userInfo.userId
     }
     if(this.semesterList.length === 0){
@@ -348,6 +351,40 @@ export class DashboardComponent implements OnInit {
       this.addSemesterEnable = false;
       this.getCurrentAttendance();
     }
+  }
+
+  onDragSubject(e,subject){
+    e.preventDefault();
+    // console.log("dragSubject",subject);
+    this.draggedSubject = subject;
+  }
+
+  onDropSubject(e,subject){
+    e.preventDefault();
+    // console.log("dropSubject",subject);
+    this.droppedSubject = subject;
+
+    this.swapSubjects(this.currentAttendance.subjectList.indexOf(this.droppedSubject), this.currentAttendance.subjectList.indexOf(this.draggedSubject));
+
+    this.updateAttendance();
+    console.log(new Date());
+
+  }
+
+  swapSubjects(indexA: number, indexB: number) {
+    var tmp = this.currentAttendance.subjectList[indexA];
+    this.currentAttendance.subjectList[indexA] = this.currentAttendance.subjectList[indexB];
+    this.currentAttendance.subjectList[indexB] = tmp;
+  }
+
+  allowDrop(e){
+    e.preventDefault();
+  }
+
+  onSelectDate(event){
+    console.log(event.target.value);
+    this.currentAttendance.lastModifiedDate = event.target.value;
+    this.updateAttendance();
   }
 
 }
