@@ -53,5 +53,15 @@ export class AttendanceServiceService {
     const endPoint = this.backendUrl + EndPoints.USER_UPDATE_ATTENDANCE;
     return this.http.put(endPoint,attendance);
   }
+
+  enableDailyRemainder(userDetails:any){
+    const endPoint = this.backendUrl + EndPoints.USER_ENABLE_REMAINDER;
+    return this.http.post(endPoint,userDetails,{responseType:'text/json'});
+  }
+
+  disableDailyRemainder(userDetails:any){
+    const endPoint = this.backendUrl + EndPoints.USER_DISABLE_REMAINDER;
+    return this.http.post(endPoint,userDetails,{responseType:'text/json'});
+  }
   
 }

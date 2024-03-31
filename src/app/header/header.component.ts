@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HelperService } from '../helper.service';
 
@@ -8,6 +8,7 @@ import { HelperService } from '../helper.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  dropDownOpen: boolean;
 
   constructor(private router: Router, private helperService: HelperService) { }
 
@@ -43,9 +44,30 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl("/dashboard");
   }
 
+  gotoProfile(){
+    this.router.navigateByUrl("/profile");
+  }
+
   signOut(){
     this.userProfile = null;
+    this.dropDownOpen = false;
     this.helperService.signOut();
+  }
+
+  dropDownTrigger(){
+    this.dropDownOpen = !this.dropDownOpen;
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClick(event: MouseEvent) {
+    if (!this.isClickInsideDropdown(event)) {
+      this.dropDownOpen = false;
+    }
+  }
+
+  isClickInsideDropdown(event: MouseEvent): boolean {
+    const dropdownContainer = document.getElementById('dropdown-container');
+    return dropdownContainer && dropdownContainer.contains(event.target as Node);
   }
 
 }

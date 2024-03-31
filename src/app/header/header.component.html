@@ -8,16 +8,24 @@
                 Login
             </div>
             <ng-container *ngIf="userProfile">
-                <!-- <div class="dashboard-text"  (click)="gotoDashboard()">
-                    Dashboard
-                </div> -->
-                <div class="dashboard-text"  (click)="signOut()">
-                    Sign Out
-                </div>
-                <div class="profile">
+                <div class="profile" id="dropdown-container" (click)="dropDownTrigger()">
                     {{userProfile}}
                 </div>
             </ng-container>
         </div>
     </div>
+    <ng-container *ngIf="dropDownOpen">
+        <div class="drop-down-container" id="dropdown-container">
+            <div class="dropdown-text" id="drop-down1" (click)="gotoDashboard()">
+                Dashboard
+            </div>
+            <div class="dropdown-text" id="drop-down2" (click)="gotoProfile()">
+                My Profile
+            </div>
+            <div class="dropdown-text" id="drop-down3"  (click)="signOut()">
+                Sign Out
+            </div>
+        </div>
+    </ng-container>
 </div>
+

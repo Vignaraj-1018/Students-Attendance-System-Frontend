@@ -12,6 +12,7 @@ import { SignupPageComponent } from './signup-page/signup-page.component';
 import { NgxUiLoaderModule  } from 'ngx-ui-loader';
 import { ChartComponent } from './chart/chart.component';
 import { ChartsModule, ThemeService } from 'ng2-charts';
+import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +21,8 @@ import { ChartsModule, ThemeService } from 'ng2-charts';
     HomeComponent,
     DashboardComponent,
     SignupPageComponent,
-    ChartComponent
+    ChartComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

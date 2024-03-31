@@ -9,5 +9,7 @@ export class EndPoints{
 
     public static USER_ALL_ATTENDANCE = "/get/user/attendance";
     public static USER_UPDATE_ATTENDANCE = "/update/attendance";
+    public static USER_ENABLE_REMAINDER = "/enableNotification";
+    public static USER_DISABLE_REMAINDER = "/disableNotification";
 
 }

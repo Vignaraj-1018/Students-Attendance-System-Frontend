@@ -1,0 +1,39 @@
+<div class="main-container">
+    <div class="container1">
+        <div class="profile-container">
+            <div class="profile-container-center">
+                <div class="profile-pic">
+                    {{userProfile}}
+                </div>
+            </div>
+            <div class="profile-info">
+                <span class="info-span info-bold">
+                    Name:
+                </span>
+                <span class="info-span">
+                    {{userInfo.name}}
+                </span>
+            </div>
+            <div class="profile-info">
+                <span class="info-span info-bold">
+                    Email:
+                </span>
+                <span class="info-span">
+                    {{userInfo.userEmail}}
+                </span>
+            </div>
+            <div class="profile-info">
+                <span class="info-span info-bold">
+                    Daily Remainder:
+                </span>
+                <span class="info-span pointer" (click)="handleRemainderToggle()">
+                    <span class="remainder" [class.enabled]="userInfo.notificationEnabled" [class.disabled]="!userInfo.notificationEnabled">{{userInfo.notificationEnabled?"Enabled":"Disabled"}}</span>
+                </span>
+            </div>
+            <div class="remainder-info">
+                If Enabled, You will be notified via Mail at 7pm (IST) <br/>(Monday - Saturday)
+            </div>
+        </div>
+    </div>
+    <!-- <div class="container2">All Attendance</div> -->
+</div>
