@@ -35,5 +35,50 @@
             </div>
         </div>
     </div>
-    <!-- <div class="container2">All Attendance</div> -->
+    <div class="container2">
+        <div class="container-head">
+            Overall Attendance
+        </div>
+        <ng-container *ngIf="academicList1">
+            <div class="academic-container" *ngFor="let item of this.academicList1">
+                <div class="container-heading">
+                    <span class="heading-1">
+                        Academic Year:
+                    </span>
+                    <span class="heading-2">
+                        {{item.academicYear}}
+                    </span>
+                </div>
+                <div class="semester-container">
+                    <!-- (click)="handleSemesterBoxClick(item.academicYear,sem.semester)" -->
+                    <div class="semester-box" *ngFor="let sem of item.semesterList">
+                        <div class="info-line-main">
+                            <div class="info-line">
+                                Semester:
+                            </div>
+                            <div class="info-line bold">
+                                {{sem.semester}}
+                            </div>
+                        </div>
+                        <div class="info-line-main">
+                            <div class="info-line">
+                                Subject Count:
+                            </div>
+                            <div class="info-line bold">
+                                {{sem.subjectCount}}
+                            </div>
+                        </div>
+                        <div class="info-line-main">
+                            <div class="info-line">
+                                Last Modified Date:
+                            </div>
+                            <div class="info-line bold">
+                                {{sem.lastModifiedDate ? (sem.lastModifiedDate | date : 'dd MMMM, yyyy'): 'Not-Given' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
 </div>

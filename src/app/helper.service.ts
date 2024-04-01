@@ -9,6 +9,7 @@ export class HelperService {
 
   userInfo;
   public triggerFunctionSubject = new Subject<String>();
+  public triggerFunctionSubjectData = new Subject<any>();
 
   constructor(private router: Router) { }
 
