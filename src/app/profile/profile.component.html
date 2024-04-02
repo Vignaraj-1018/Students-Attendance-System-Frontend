@@ -24,6 +24,18 @@
             </div>
             <div class="profile-info">
                 <span class="info-span info-bold">
+                    Password:
+                </span>
+                <span class="info-span reset-button" (click)="handleResetPassword()">
+                    Reset Password
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="container1">
+        <div class="profile-container">
+            <div class="profile-info">
+                <span class="info-span info-bold">
                     Daily Remainder:
                 </span>
                 <span class="info-span pointer" (click)="handleRemainderToggle()">
@@ -35,50 +47,46 @@
             </div>
         </div>
     </div>
-    <div class="container2">
-        <div class="container-head">
-            Overall Attendance
-        </div>
-        <ng-container *ngIf="academicList1">
-            <div class="academic-container" *ngFor="let item of this.academicList1">
-                <div class="container-heading">
-                    <span class="heading-1">
-                        Academic Year:
-                    </span>
-                    <span class="heading-2">
-                        {{item.academicYear}}
-                    </span>
-                </div>
-                <div class="semester-container">
-                    <!-- (click)="handleSemesterBoxClick(item.academicYear,sem.semester)" -->
-                    <div class="semester-box" *ngFor="let sem of item.semesterList">
-                        <div class="info-line-main">
-                            <div class="info-line">
-                                Semester:
-                            </div>
-                            <div class="info-line bold">
-                                {{sem.semester}}
-                            </div>
-                        </div>
-                        <div class="info-line-main">
-                            <div class="info-line">
-                                Subject Count:
-                            </div>
-                            <div class="info-line bold">
-                                {{sem.subjectCount}}
-                            </div>
-                        </div>
-                        <div class="info-line-main">
-                            <div class="info-line">
-                                Last Modified Date:
-                            </div>
-                            <div class="info-line bold">
-                                {{sem.lastModifiedDate ? (sem.lastModifiedDate | date : 'dd MMMM, yyyy'): 'Not-Given' }}
-                            </div>
-                        </div>
-                    </div>
+    <div class="container1" *ngIf="resetPassword">
+        <div class="profile-container">
+            <div class="container-heading">
+                Reset Password
+            </div>
+            <div class="profile-info">
+                <span class="info-span info-bold">
+                    Old Password:
+                </span>
+                <span class="info-span password-field">
+                    <input [type]="passwordVisible ? 'text' : 'password'" (change)="onOldPasswordChange($event)">
+                    <img src="assets/icons/eye-open.svg" (click)="passwordVisible = !passwordVisible" *ngIf="passwordVisible"/>
+                    <img src="assets/icons/eye-close.svg" (click)="passwordVisible = !passwordVisible" *ngIf="!passwordVisible"/>
+                </span>
+            </div>
+            <div class="profile-info">
+                <span class="info-span info-bold">
+                    New Password:
+                </span>
+                <span class="info-span password-field">
+                    <input [type]="passwordVisible ? 'text' : 'password'" (change)="onNewPasswordChange($event)">
+                    <img src="assets/icons/eye-open.svg" (click)="passwordVisible = !passwordVisible" *ngIf="passwordVisible"/>
+                    <img src="assets/icons/eye-close.svg" (click)="passwordVisible = !passwordVisible" *ngIf="!passwordVisible"/>
+                </span>
+            </div>
+            <div class="profile-info">
+                <span class="info-span info-bold">
+                    Repeat New Password:
+                </span>
+                <span class="info-span password-field">
+                    <input [type]="passwordVisible ? 'text' : 'password'" (change)="onRepeatNewPasswordChange($event)">
+                    <img src="assets/icons/eye-open.svg" (click)="passwordVisible = !passwordVisible" *ngIf="passwordVisible"/>
+                    <img src="assets/icons/eye-close.svg" (click)="passwordVisible = !passwordVisible" *ngIf="!passwordVisible"/>
+                </span>
+            </div>
+            <div class="submit-reset-password">
+                <div class="submit-button" (click)="onSubmitResetPassword()">
+                    Submit
                 </div>
             </div>
-        </ng-container>
+        </div>
     </div>
 </div>

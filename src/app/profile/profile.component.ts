@@ -15,7 +15,11 @@ export class ProfileComponent implements OnInit {
   overallAttendance: [];
   academicList: {[key: string]: any} ={};
   academicList1: any=[];
-
+  resetPassword: boolean = false;
+  oldPassword: any;
+  newPassword: any;
+  repeatNewPassword: any;
+  passwordVisible: boolean = false;
   constructor(private attendanceService: AttendanceServiceService, private helperService: HelperService, private router:Router) { }
 
   ngOnInit() {
@@ -94,9 +98,68 @@ export class ProfileComponent implements OnInit {
     console.log(this.academicList,this.academicList1);
   }
 
-  handleSemesterBoxClick(academicYear, semester){
-    console.log(academicYear, semester);
-    this.helperService.triggerFunctionSubjectData.next({academicYear:academicYear, semester:semester});
-    this.router.navigateByUrl("/dashboard");
+  handleResetPassword(){
+    this.resetPassword = true;  
   }
+
+  onOldPasswordChange(event){
+    this.oldPassword = event.target.value;
+  }
+
+  onNewPasswordChange(event){
+    this.newPassword = event.target.value;
+  }
+
+  onRepeatNewPasswordChange(event){
+    this.repeatNewPassword = event.target.value;
+  }
+
+  onSubmitResetPassword(e){
+    e.preventDefault();
+    console.log(this.oldPassword,this.newPassword,this.repeatNewPassword);
+    
+    if(this.newPassword !== this.repeatNewPassword){
+      alert("New Password and Repeat New Password should be same");
+      return;
+    }
+
+    let userDetails = {
+      "userEmail": this.userInfo.userEmail,
+      "password": this.oldPassword
+    }
+    
+    this.attendanceService.loginUser(userDetails).toPromise().then((resp:any)=>{
+      console.log(resp);
+      this.resetPasswordHandler();
+      })
+      .catch((err:any)=>{
+        console.log(err);
+        alert("Wrong Password");
+      });
+  }
+
+  resetPasswordHandler(){
+    let postObj = {
+      userId: this.userInfo.userId,
+      password: this.newPassword
+    }
+
+    this.attendanceService.resetPassword(postObj).toPromise()
+    .then((resp:any)=>{
+      console.log(resp);
+    })
+    .catch((err)=>{
+      console.log(err);
+    });
+
+    this.resetPassword = false;
+    alert("Password Reset Successful");
+  }
+
+  resetPasswordFields(){
+    this.oldPassword = "";
+    this.newPassword = "";
+    this.repeatNewPassword = "";
+  }
+
 }

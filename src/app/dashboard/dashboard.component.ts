@@ -50,13 +50,6 @@ export class DashboardComponent implements OnInit {
       }
       console.log(prompt);
     });
-    this.helperService.triggerFunctionSubjectData.subscribe((data)=>{
-      console.log(data);
-      setTimeout(()=>{
-        this.onSelectAcademicYear1(data.academicYear,data.semester);
-        console.log(this.currentAttendance);
-      },100)
-    })
   }
 
   prepareAcademicYearList() {
@@ -149,21 +142,8 @@ export class DashboardComponent implements OnInit {
     this.getSemesterList();
   }
 
-  onSelectAcademicYear1(academicYear,semester){
-    this.selectedAcademicYear = academicYear;
-    console.log(this.selectedAcademicYear);
-    this.getSemesterList();
-    this.onSelectSemester1(semester)
-  }
-
   onSelectSemester(event){
     this.selectedSemester = event.target.value;
-    console.log(this.selectedSemester);
-    this.getCurrentAttendance();
-  }
-
-  onSelectSemester1(semester){
-    this.selectedSemester = semester;
     console.log(this.selectedSemester);
     this.getCurrentAttendance();
   }
