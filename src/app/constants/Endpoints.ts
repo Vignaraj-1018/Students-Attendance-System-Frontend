@@ -6,6 +6,9 @@ export class EndPoints{
     public static RESEND_OTP = "/resend/otp";
     public static REQUEST_FORGOT_PASSWORD = "/request/forgotPassword";
     public static RESET_PASSWORD = "/resetPassword";
+    public static UPDATE_USER = "/updateUser";
+
+    public static CONTACT_ME = "/contactMe";
 
     public static USER_ALL_ATTENDANCE = "/get/user/attendance";
     public static USER_UPDATE_ATTENDANCE = "/update/attendance";

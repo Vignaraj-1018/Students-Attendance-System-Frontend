@@ -63,5 +63,15 @@ export class AttendanceServiceService {
     const endPoint = this.backendUrl + EndPoints.USER_DISABLE_REMAINDER;
     return this.http.post(endPoint,userDetails,{responseType:'text/json'});
   }
+
+  updateUser(userDetails:any){
+    const endPoint = this.backendUrl + EndPoints.UPDATE_USER;
+    return this.http.post(endPoint,userDetails,{responseType:'text/json'});
+  }
+
+  contactMe(emailDetails:any){
+    const endPoint = this.backendUrl + EndPoints.CONTACT_ME;
+    return this.http.post(endPoint,emailDetails,{responseType:'text/json'});
+  }
   
 }

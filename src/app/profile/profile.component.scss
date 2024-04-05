@@ -7,6 +7,8 @@
     // justify-content: center;
     align-items: center;
     padding-top: 2rem;
+    padding-bottom: 2rem;
+    overflow: auto;
 }
 
 .container1{
@@ -143,6 +145,7 @@
     align-items: center;
     width: 100%;
     cursor: pointer;
+    gap: 15px;
 }
 
 .submit-button{
@@ -159,7 +162,7 @@
     position: relative;
 }
 
-.password-field input{
+input, .text-area{
     border: none;
     border-bottom: 1px solid #a3a3a3;
 }
@@ -168,4 +171,24 @@
     position: absolute;
     display: flex;
     right: 0;
+}
+
+.edit-name{
+    display: flex;
+    cursor: pointer;
+}
+
+.contact-info-text{
+    display: flex;
+    width: 100%;
+    font-size: 16px;
+    font-weight: bold;
+    justify-content: center;
+}
+
+.contact-text{
+    display: flex;
+    color: #5252eb;
+    text-decoration: underline;
+    cursor: pointer;
 }

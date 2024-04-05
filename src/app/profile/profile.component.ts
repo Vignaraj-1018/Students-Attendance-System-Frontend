@@ -20,6 +20,11 @@ export class ProfileComponent implements OnInit {
   newPassword: any;
   repeatNewPassword: any;
   passwordVisible: boolean = false;
+  editNameBox: boolean = false;
+  newName: any;
+  contactBox: boolean = false;
+  subject: any;
+  message: any;
   constructor(private attendanceService: AttendanceServiceService, private helperService: HelperService, private router:Router) { }
 
   ngOnInit() {
@@ -114,8 +119,19 @@ export class ProfileComponent implements OnInit {
     this.repeatNewPassword = event.target.value;
   }
 
-  onSubmitResetPassword(e){
-    e.preventDefault();
+  onNewNameChange(event){
+    this.newName = event.target.value;
+  }
+
+  onSubjectChange(event){
+    this.subject = event.target.value;
+  }
+
+  onMessageChange(event){
+    this.message = event.target.value;
+  }
+
+  onSubmitResetPassword(){
     console.log(this.oldPassword,this.newPassword,this.repeatNewPassword);
     
     if(this.newPassword !== this.repeatNewPassword){
@@ -138,6 +154,10 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  cancelResetPassword(){
+    this.resetPassword = false;
+  }
+
   resetPasswordHandler(){
     let postObj = {
       userId: this.userInfo.userId,
@@ -153,6 +173,7 @@ export class ProfileComponent implements OnInit {
     });
 
     this.resetPassword = false;
+    this.resetPasswordFields();
     alert("Password Reset Successful");
   }
 
@@ -160,6 +181,66 @@ export class ProfileComponent implements OnInit {
     this.oldPassword = "";
     this.newPassword = "";
     this.repeatNewPassword = "";
+  }
+
+  handleEditName(){
+    this.editNameBox = true;
+  }
+
+  onSubmitNewName(){
+    console.log(this.newName);
+    
+    let postObj = {
+      userId: this.userInfo.userId,
+      name: this.newName
+    }
+    console.log(postObj);
+    
+    this.attendanceService.updateUser(postObj).toPromise()
+    .then((resp:any)=>{
+      console.log(resp);
+      this.helperService.userInfo.name = this.newName;
+      localStorage.setItem("userInfo",JSON.stringify(this.helperService.userInfo));
+    })
+    .catch((err)=>{
+      console.log(err);
+    });
+    this.editNameBox = false;
+  }
+
+  onCancelEditName(){
+    this.editNameBox = false;
+    this.newName = '';
+  }
+
+  onHandleContactMe(){
+    this.contactBox = true;
+  }
+
+  onSubmitContact(){
+    console.log(this.subject,this.message);
+    
+    let postObj = {
+      name: this.userInfo.name,
+      mail: this.userInfo.userEmail,
+      subject: this.subject,
+      message: this.message
+    }
+    console.log(postObj);
+
+    this.attendanceService.contactMe(postObj).toPromise()
+    .then((resp:any)=>{
+      console.log(resp);
+    })
+    .catch((err)=>{
+      console.log(err);
+    });
+  }
+
+  onCancelContact(){
+    this.contactBox = false;
+    this.subject = '';
+    this.message = '';
   }
 
 }
