@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HelperService } from '../helper.service';
 import { AttendanceServiceService } from '../attendance-service.service';
 import { Router } from '@angular/router';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +26,7 @@ export class ProfileComponent implements OnInit {
   contactBox: boolean = false;
   subject: any;
   message: any;
-  constructor(private attendanceService: AttendanceServiceService, private helperService: HelperService, private router:Router) { }
+  constructor(private attendanceService: AttendanceServiceService, private helperService: HelperService, private router:Router, private ngxService: NgxUiLoaderService) { }
 
   ngOnInit() {
     this.userInfo = this.helperService.userInfo;
@@ -41,14 +42,17 @@ export class ProfileComponent implements OnInit {
     console.log("Remainder Toggle triggered");
     if(this.userInfo.notificationEnabled){
       if(confirm("Are you Sure to Disable the Daily Remainder?")){
+        this.ngxService.start();
         this.attendanceService.disableDailyRemainder(this.userInfo).toPromise()
         .then((resp:any)=>{
           console.log(resp);
           this.helperService.userInfo.notificationEnabled = false;
           localStorage.setItem("userInfo",JSON.stringify(this.helperService.userInfo));
+          this.ngxService.stop();
         })
         .catch((err:any)=>{
           console.log(err);
+          this.ngxService.stop();
         })
       }
       else{
@@ -57,14 +61,17 @@ export class ProfileComponent implements OnInit {
     }
     else{
       if(confirm("Are you Sure to Enable the Daily Remainder?")){
+        this.ngxService.start();
         this.attendanceService.enableDailyRemainder(this.userInfo).toPromise()
         .then((resp:any)=>{
           console.log(resp);
           this.helperService.userInfo.notificationEnabled = true;
           localStorage.setItem("userInfo",JSON.stringify(this.helperService.userInfo));
+          this.ngxService.stop();
         })
         .catch((err:any)=>{
           console.log(err);
+          this.ngxService.stop();
         })
       }
       else{
@@ -143,14 +150,19 @@ export class ProfileComponent implements OnInit {
       "userEmail": this.userInfo.userEmail,
       "password": this.oldPassword
     }
+
+    this.ngxService.start();
     
-    this.attendanceService.loginUser(userDetails).toPromise().then((resp:any)=>{
-      console.log(resp);
-      this.resetPasswordHandler();
+    this.attendanceService.loginUser(userDetails).toPromise()
+      .then((resp:any)=>{
+        console.log(resp);
+        this.resetPasswordHandler();
+        this.ngxService.stop();
       })
       .catch((err:any)=>{
         console.log(err);
         alert("Wrong Password");
+        this.ngxService.stop();
       });
   }
 
@@ -163,13 +175,16 @@ export class ProfileComponent implements OnInit {
       userId: this.userInfo.userId,
       password: this.newPassword
     }
+    this.ngxService.start();
 
     this.attendanceService.resetPassword(postObj).toPromise()
     .then((resp:any)=>{
       console.log(resp);
+      this.ngxService.stop();
     })
     .catch((err)=>{
       console.log(err);
+      this.ngxService.stop();
     });
 
     this.resetPassword = false;
@@ -195,15 +210,18 @@ export class ProfileComponent implements OnInit {
       name: this.newName
     }
     console.log(postObj);
+    this.ngxService.start();
     
     this.attendanceService.updateUser(postObj).toPromise()
     .then((resp:any)=>{
       console.log(resp);
       this.helperService.userInfo.name = this.newName;
       localStorage.setItem("userInfo",JSON.stringify(this.helperService.userInfo));
+      this.ngxService.stop();
     })
     .catch((err)=>{
       console.log(err);
+      this.ngxService.stop();
     });
     this.editNameBox = false;
   }
@@ -227,14 +245,18 @@ export class ProfileComponent implements OnInit {
       message: this.message
     }
     console.log(postObj);
+    this.ngxService.start();
 
     this.attendanceService.contactMe(postObj).toPromise()
     .then((resp:any)=>{
       console.log(resp);
+      this.ngxService.stop();
     })
     .catch((err)=>{
       console.log(err);
+      this.ngxService.stop();
     });
+    this.onCancelContact();
   }
 
   onCancelContact(){
