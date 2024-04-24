@@ -35,7 +35,7 @@ export class SignupPageComponent implements OnInit {
 
   submitSignup(event){
     event.preventDefault();
-    console.log(this.userEmail,this.userPwd);
+    // console.log(this.userEmail,this.userPwd);
     let userDetails = {
       "name": this.userName,
       "userEmail": this.userEmail,
@@ -44,7 +44,7 @@ export class SignupPageComponent implements OnInit {
 
     this.ngxService.start();
     this.attendanceService.signUpUser(userDetails).toPromise().then((resp:any)=>{
-      console.log(resp);
+      // console.log(resp);
       localStorage.setItem("userId",resp.userId);
       localStorage.setItem("userInfo",JSON.stringify(resp));
       this.helperService.userInfo = resp;

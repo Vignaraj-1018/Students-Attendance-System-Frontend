@@ -34,18 +34,18 @@ export class ProfileComponent implements OnInit {
       this.userProfile = this.userInfo.name[0];
     }
     this.remainderToggle = this.userInfo.notificationEnabled;
-    console.log(this.userInfo, this.remainderToggle);
+    // console.log(this.userInfo, this.remainderToggle);
     this.getUserAttendance();
   }
 
   handleRemainderToggle(){
-    console.log("Remainder Toggle triggered");
+    // console.log("Remainder Toggle triggered");
     if(this.userInfo.notificationEnabled){
       if(confirm("Are you Sure to Disable the Daily Remainder?")){
         this.ngxService.start();
         this.attendanceService.disableDailyRemainder(this.userInfo).toPromise()
         .then((resp:any)=>{
-          console.log(resp);
+          // console.log(resp);
           this.helperService.userInfo.notificationEnabled = false;
           localStorage.setItem("userInfo",JSON.stringify(this.helperService.userInfo));
           this.ngxService.stop();
@@ -64,7 +64,7 @@ export class ProfileComponent implements OnInit {
         this.ngxService.start();
         this.attendanceService.enableDailyRemainder(this.userInfo).toPromise()
         .then((resp:any)=>{
-          console.log(resp);
+          // console.log(resp);
           this.helperService.userInfo.notificationEnabled = true;
           localStorage.setItem("userInfo",JSON.stringify(this.helperService.userInfo));
           this.ngxService.stop();
@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
 
   getUserAttendance(){
     this.attendanceService.getAttendance(this.userInfo.userId).toPromise().then((resp:any)=>{
-      console.log(resp);
+      // console.log(resp);
       this.overallAttendance = resp;
       this.prepareAttendaceData();
     })
@@ -92,9 +92,9 @@ export class ProfileComponent implements OnInit {
   }
 
   prepareAttendaceData(){
-    console.log(this.overallAttendance);
+    // console.log(this.overallAttendance);
     this.overallAttendance.forEach((element:any) => {
-      console.log(element);
+      // console.log(element);
       if(element.academicYear in this.academicList){
         this.academicList[element.academicYear].push({semester:element.semester,subjectCount:element.subjectList.length,lastModifiedDate:element.lastModifiedDate});
       }
@@ -103,11 +103,11 @@ export class ProfileComponent implements OnInit {
         this.academicList[element.academicYear].push({semester:element.semester,subjectCount:element.subjectList.length,lastModifiedDate:element.lastModifiedDate});
       }
     });
-    console.log(this.academicList);
+    // console.log(this.academicList);
     Object.keys(this.academicList).forEach((item)=>{
       this.academicList1.push({academicYear:item, semesterList:this.academicList[item].sort((a, b) => a.semester - b.semester)});
     })
-    console.log(this.academicList,this.academicList1);
+    // console.log(this.academicList,this.academicList1);
   }
 
   handleResetPassword(){
@@ -139,7 +139,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmitResetPassword(){
-    console.log(this.oldPassword,this.newPassword,this.repeatNewPassword);
+    // console.log(this.oldPassword,this.newPassword,this.repeatNewPassword);
     
     if(this.newPassword !== this.repeatNewPassword){
       alert("New Password and Repeat New Password should be same");
@@ -155,7 +155,7 @@ export class ProfileComponent implements OnInit {
     
     this.attendanceService.loginUser(userDetails).toPromise()
       .then((resp:any)=>{
-        console.log(resp);
+        // console.log(resp);
         this.resetPasswordHandler();
         this.ngxService.stop();
       })
@@ -179,7 +179,7 @@ export class ProfileComponent implements OnInit {
 
     this.attendanceService.resetPassword(postObj).toPromise()
     .then((resp:any)=>{
-      console.log(resp);
+      // console.log(resp);
       this.ngxService.stop();
     })
     .catch((err)=>{
@@ -203,24 +203,24 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmitNewName(){
-    console.log(this.newName);
+    // console.log(this.newName);
     
     let postObj = {
       userId: this.userInfo.userId,
       name: this.newName
     }
-    console.log(postObj);
+    // console.log(postObj);
     this.ngxService.start();
     
     this.attendanceService.updateUser(postObj).toPromise()
     .then((resp:any)=>{
-      console.log(resp);
+      // console.log(resp);
       this.helperService.userInfo.name = this.newName;
       localStorage.setItem("userInfo",JSON.stringify(this.helperService.userInfo));
       this.ngxService.stop();
     })
     .catch((err)=>{
-      console.log(err);
+      // console.log(err);
       this.ngxService.stop();
     });
     this.editNameBox = false;
@@ -236,7 +236,7 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmitContact(){
-    console.log(this.subject,this.message);
+    // console.log(this.subject,this.message);
     
     let postObj = {
       name: this.userInfo.name,
@@ -244,12 +244,12 @@ export class ProfileComponent implements OnInit {
       subject: this.subject,
       message: this.message
     }
-    console.log(postObj);
+    // console.log(postObj);
     this.ngxService.start();
 
     this.attendanceService.contactMe(postObj).toPromise()
     .then((resp:any)=>{
-      console.log(resp);
+      // console.log(resp);
       this.ngxService.stop();
     })
     .catch((err)=>{

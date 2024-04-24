@@ -37,7 +37,7 @@ export class ChartComponent implements OnInit {
   public lineChartPlugins = [];
   
   ngOnInit() {
-    console.log(this.labelList,this.dataList);
+    // console.log(this.labelList,this.dataList);
     this.showChart();
   }
   

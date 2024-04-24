@@ -39,7 +39,7 @@ export class LoginPageComponent implements OnInit {
 
   submitLogin(event){
     event.preventDefault();
-    console.log(this.userEmail,this.userpwd);
+    // console.log(this.userEmail,this.userpwd);
     let userDetails = {
       "userEmail": this.userEmail,
       "password": this.userpwd
@@ -48,7 +48,7 @@ export class LoginPageComponent implements OnInit {
     this.ngxService.start();
 
     this.attendanceService.loginUser(userDetails).toPromise().then((resp:any)=>{
-      console.log(resp);
+      // console.log(resp);
       localStorage.setItem("userId",resp.userId);
       localStorage.setItem("userInfo",JSON.stringify(resp));
       this.helperService.userInfo = resp;
@@ -74,13 +74,13 @@ export class LoginPageComponent implements OnInit {
   forgotPasswordRequest(event){
     event.preventDefault();
     this.ngxService.start();
-    console.log(this.userEmail,this.userpwd);
+    // console.log(this.userEmail,this.userpwd);
     let userDetails = {
       "userEmail": this.userEmail
     }
 
     this.attendanceService.forgotPasswordRequest(userDetails).toPromise().then((resp: any)=>{
-      console.log(resp);
+      // console.log(resp);
       this.ngxService.stop();
       this.userId = JSON.parse(resp).userId;
       this.page = 3;
@@ -94,7 +94,7 @@ export class LoginPageComponent implements OnInit {
 
   validateOTP(e){
     e.preventDefault();
-    console.log("here", this.userOtp);
+    // console.log("here", this.userOtp);
     let postObj = {
       userId: this.userId,
       OTP: this.userOtp
@@ -104,7 +104,7 @@ export class LoginPageComponent implements OnInit {
     this.attendanceService.submitOtp(postObj).toPromise()
     .then((resp:any)=>{
       this.ngxService.stop();
-      console.log(resp,1);
+      // console.log(resp,1);
       this.page = 4;
     })
     .catch((err)=>{
@@ -118,7 +118,7 @@ export class LoginPageComponent implements OnInit {
   }
 
   resendOtp(){
-    console.log("resending otp...");
+    // console.log("resending otp...");
     
     let postObj = {
       userEmail: this.userEmail
@@ -129,7 +129,7 @@ export class LoginPageComponent implements OnInit {
     .then((resp)=>{
       this.otpResent = true;
       this.ngxService.stop();
-      console.log(resp,1);
+      // console.log(resp,1);
       alert(resp+ "\nPLease Check the Mail")
     })
     .catch((err)=>{
@@ -150,7 +150,7 @@ export class LoginPageComponent implements OnInit {
     this.attendanceService.resetPassword(postObj).toPromise()
     .then((resp:any)=>{
       this.ngxService.stop();
-      console.log(resp,1);
+      // console.log(resp,1);
       this.page = 1;
     })
     .catch((err)=>{

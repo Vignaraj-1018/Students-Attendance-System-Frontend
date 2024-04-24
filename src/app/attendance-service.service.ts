@@ -8,9 +8,11 @@ import { EndPoints } from './constants/Endpoints';
 export class AttendanceServiceService {
 
   private backendUrl:  any;
+  private myHelperApi: string;
 
   constructor(private http: HttpService) {
     this.backendUrl =  "https://lofty-door-405004.el.r.appspot.com";
+    this.myHelperApi = "https://helper-api-vignu.el.r.appspot.com";
   }
 
   loginUser(userDetails:any){
@@ -72,6 +74,12 @@ export class AttendanceServiceService {
   contactMe(emailDetails:any){
     const endPoint = this.backendUrl + EndPoints.CONTACT_ME;
     return this.http.post(endPoint,emailDetails,{responseType:'text/json'});
+  }
+
+  contactMeHomePage(emailDetails:any){
+    const endPoint = this.myHelperApi + "/mail_merchant/sendmail/6439b57fa69037f206b91648"
+    return this.http.post(endPoint,emailDetails,{responseType:'text/json'});
+
   }
   
 }

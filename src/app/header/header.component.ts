@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
         this.userInfo = this.helperService.userInfo;
         this.getUserName();
       }
-      console.log(prompt);
+      // console.log(prompt);
     });
   }
 

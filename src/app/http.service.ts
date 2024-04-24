@@ -18,7 +18,7 @@ export class HttpService {
   }
 
   post<T>(path: string, body: string, headers?: Object | null): Observable<T> {
-    console.log(path);
+    // console.log(path);
     if (headers) {
       return this.http.post<T>(path, body, headers);
     } else {

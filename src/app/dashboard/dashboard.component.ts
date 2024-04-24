@@ -41,20 +41,20 @@ export class DashboardComponent implements OnInit {
     else{
       this.page = 3;
     }
-    console.log(this.userInfo, this.isAthenticated);
+    // console.log(this.userInfo, this.isAthenticated);
     this.getUserAttendance();
     this.prepareAcademicYearList();
     this.helperService.triggerFunctionSubject.subscribe((prompt)=>{
       if(prompt === "userSignedUp"){
         this.page = 2;
       }
-      console.log(prompt);
+      // console.log(prompt);
     });
   }
 
   prepareAcademicYearList() {
     let year= new Date().getFullYear();
-    console.log(year);
+    // console.log(year);
     this.academicYearList.push((year-1)+'-'+year);
     this.academicYearList.push(year+'-'+(year+1));
     if(new Date().getMonth()>5){
@@ -67,7 +67,7 @@ export class DashboardComponent implements OnInit {
 
   getUserAttendance(){
     this.attendanceService.getAttendance(this.userInfo.userId).toPromise().then((resp)=>{
-      console.log(resp);
+      // console.log(resp);
       this.overallAttendance = resp;
       this.prepareAttendaceData();
     })
@@ -82,7 +82,7 @@ export class DashboardComponent implements OnInit {
 
   submitOtp(e){
     e.preventDefault();
-    console.log("here", this.userOtp);
+    // console.log("here", this.userOtp);
     let postObj = {
       userId: this.userInfo.userId,
       OTP: this.userOtp
@@ -94,10 +94,10 @@ export class DashboardComponent implements OnInit {
       this.ngxService.stop();
       this.page = 3;
       this.userInfo.authenticated = true;
-      console.log(resp,1);
+      // console.log(resp,1);
       localStorage.removeItem("userInfo");
       localStorage.setItem("userInfo",resp);
-      console.log(resp,1);
+      // console.log(resp,1);
     })
     .catch((err)=>{
       this.ngxService.stop();
@@ -111,7 +111,7 @@ export class DashboardComponent implements OnInit {
   }
 
   resendOtp(){
-    console.log("resending otp...");
+    // console.log("resending otp...");
     
     let postObj = {
       userEmail: this.userInfo.userEmail,
@@ -122,7 +122,7 @@ export class DashboardComponent implements OnInit {
     .then((resp)=>{
       this.otpResent = true;
       this.ngxService.stop();
-      console.log(resp,1);
+      // console.log(resp,1);
       alert(resp+ "\nPLease Check the Mail")
     })
     .catch((err)=>{
@@ -138,13 +138,13 @@ export class DashboardComponent implements OnInit {
 
   onSelectAcademicYear(event){
     this.selectedAcademicYear = event.target.value;
-    console.log(this.selectedAcademicYear);
+    // console.log(this.selectedAcademicYear);
     this.getSemesterList();
   }
 
   onSelectSemester(event){
     this.selectedSemester = event.target.value;
-    console.log(this.selectedSemester);
+    // console.log(this.selectedSemester);
     this.getCurrentAttendance();
   }
 
@@ -152,7 +152,7 @@ export class DashboardComponent implements OnInit {
 
     this.overallAttendance.forEach(element => {
       this.academicYearList.push(element.academicYear);
-      console.log(element);
+      // console.log(element);
     });
 
     this.academicYearList = [...new Set(this.academicYearList)];
@@ -164,14 +164,14 @@ export class DashboardComponent implements OnInit {
         return 1;
       }
     });
-    console.log(this.academicYearList);
+    // console.log(this.academicYearList);
     this.getSemesterList();
 
   }
 
   getSemesterList() {
 
-    console.log(this.selectedAcademicYear, this.overallAttendance);
+    // console.log(this.selectedAcademicYear, this.overallAttendance);
     this.semesterList = [];
 
     this.overallAttendance.forEach(element => {
@@ -180,11 +180,11 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-    console.log(this.semesterList);
+    // console.log(this.semesterList);
 
     this.semesterList.sort((s1:number,s2:number)=>(s1-s2));
 
-    console.log(this.semesterList);
+    // console.log(this.semesterList);
 
     this.selectedSemester = this.semesterList[0];
 
@@ -200,7 +200,7 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-    console.log(this.currentAttendance);
+    // console.log(this.currentAttendance);
     this.prepareChartData();
   }
   prepareChartData() {
@@ -210,12 +210,12 @@ export class DashboardComponent implements OnInit {
       this.chartLabelList.push(element.name);
       this.chartDataList.push(this.getPercentForChart(element));
     });
-    console.log(this.chartDataList,this.chartLabelList);
+    // console.log(this.chartDataList,this.chartLabelList);
     this.chartShow = true;
   }
 
   onAddPresent(subject,type){
-    console.log(subject);
+    // console.log(subject);
     this.currentAttendance.subjectList.forEach(element => {
       if(element.subjectId === subject.subjectId){
         if(type){
@@ -230,12 +230,12 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
-    console.log(this.currentAttendance);
+    // console.log(this.currentAttendance);
     this.updateAttendance();
   }
 
   onAddAbsent(subject,type){
-    console.log(subject);
+    // console.log(subject);
     this.currentAttendance.subjectList.forEach(element => {
       if(element.subjectId === subject.subjectId){
         if(type){
@@ -248,13 +248,13 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
-    console.log(this.currentAttendance);
+    // console.log(this.currentAttendance);
     this.updateAttendance();
   }
 
   updateAttendance(){
     this.attendanceService.updateAttendance(this.currentAttendance).toPromise().then((resp)=>{
-      console.log(resp);
+      // console.log(resp);
       this.prepareChartData();
     })
     .catch((err) => {
@@ -264,7 +264,7 @@ export class DashboardComponent implements OnInit {
 
   deleteSubject(subject){
     if(confirm('Are you sure you want to delete')){
-      console.log('Confirm delete');
+      // console.log('Confirm delete');
       this.currentAttendance.subjectList.forEach((element,i) => {
         if(element.subjectId === subject.subjectId){
           this.currentAttendance.subjectList.splice(i,1);
@@ -273,12 +273,12 @@ export class DashboardComponent implements OnInit {
       this.updateAttendance();
     }
     else{
-      console.log("Cancel delete");
+      // console.log("Cancel delete");
     }
   }
 
   editSubject(subject){
-    console.log('Edit subject',subject);
+    // console.log('Edit subject',subject);
     subject.editEnabled = true;
   }
 
@@ -367,7 +367,7 @@ export class DashboardComponent implements OnInit {
     this.swapSubjects(this.currentAttendance.subjectList.indexOf(this.droppedSubject), this.currentAttendance.subjectList.indexOf(this.draggedSubject));
 
     this.updateAttendance();
-    console.log(new Date());
+    // console.log(new Date());
 
   }
 
@@ -382,7 +382,7 @@ export class DashboardComponent implements OnInit {
   }
 
   onSelectDate(event){
-    console.log(event.target.value);
+    // console.log(event.target.value);
     this.currentAttendance.lastModifiedDate = event.target.value;
     this.updateAttendance();
   }

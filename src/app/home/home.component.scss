@@ -1,19 +1,111 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    gap: 100px;
+    height: 100%;
+    padding: 2rem 2rem;
+}
+
 .main-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
-    height: 100%;
+    gap: 50px;
+    font-size: 25px;
 }
 
-.main-content-text{
+
+.quote-text{
     display: flex;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.section{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.section .title{
+    font-weight: bold;
+}
+
+.section .intro-text{
+    text-align: justify;
+}
+
+.section .intro-text .list-title{
+    font-weight: bold;
+}
+
+.navigation-button{
+    background-color: #5252eb;
+    border-radius: 15px;
+    height: 2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+    color: #FFF;
+}
+
+.get-started{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.contact-section{
+    display: flex;
+    padding-bottom: 1rem;
+    gap: 20px;
+}
+
+.contact-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 25rem;
+    align-items: flex-start;
+}
+
+.input-field{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.input-field label, .input-field input{
+    display: flex;
+}
+
+.submit-btn{
+    background-color: #5252eb;
+    border-radius: 15px;
+    height: 2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+    color: #FFF;
+    border: none;
+    font-family: "poppins";
     font-size: 20px;
 }
 
-.navigation-text{
+.submit-field{
     display: flex;
-    color: blue;
-    cursor: pointer;
+    width: 100%;
+    justify-content: center;
+    padding-top: 1rem;
 }

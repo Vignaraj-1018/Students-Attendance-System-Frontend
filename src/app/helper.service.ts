@@ -14,7 +14,7 @@ export class HelperService {
   constructor(private router: Router) { }
 
   ngOnChanges(){
-    console.log(this.userInfo);
+    // console.log(this.userInfo);
   }
 
   signOut(){
