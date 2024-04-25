@@ -66,13 +66,16 @@ export class DashboardComponent implements OnInit {
   }
 
   getUserAttendance(){
+    this.ngxService.start();
     this.attendanceService.getAttendance(this.userInfo.userId).toPromise().then((resp)=>{
       // console.log(resp);
       this.overallAttendance = resp;
       this.prepareAttendaceData();
+      this.ngxService.stop();
     })
     .catch((e)=>{
       console.log(e);
+      this.ngxService.stop();
     })
   }
 
