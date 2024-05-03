@@ -79,7 +79,11 @@ export class AttendanceServiceService {
   contactMeHomePage(emailDetails:any){
     const endPoint = this.myHelperApi + "/mail_merchant/sendmail/6439b57fa69037f206b91648"
     return this.http.post(endPoint,emailDetails,{responseType:'text/json'});
+  }
 
+  sendViewCount(data:any){
+    const endPoint = this.myHelperApi + "/my_website_analytics/website_view";
+    return this.http.post(endPoint,data,{responseType:'text/json'});
   }
   
 }
