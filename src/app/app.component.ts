@@ -12,18 +12,18 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
 
     if(sessionStorage.getItem("viewAnalyticsSend")){
-      console.log("Old Session");
+      // console.log("Old Session");
     }
     else{
       sessionStorage.setItem("viewAnalyticsSend", "true");
-      console.log("New Session");
+      // console.log("New Session");
       let data = {
         name:"Student Attendance Tracker",
         url:"https://student-attendance-tracker.vercel.app/"
       }
       this.attendanceService.sendViewCount(data).toPromise()
       .then((resp) => {
-        console.log(resp);
+        // console.log(resp);
       })
       .catch((err) => {
         console.log(err);
