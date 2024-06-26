@@ -16,14 +16,5 @@ export class AppComponent {
   constructor(@Inject(UserService) private userService:UserService) {}
 
   ngOnInit(): void {
-    this.userService.welcomeUser().subscribe(resp=>{
-      console.log(resp);
-    });
-    this.userService.loginUser({'userEmail':"vignaraj03@gmail.com","password":"vignu123"}).subscribe(resp=>{
-      console.log(resp);
-    });
-    this.userService.resetPassword({'userEmail':"vignaraj03@gmail.com","password":"vignu123"}).subscribe(resp=>{
-      console.log(resp);
-    })
   }
 }
