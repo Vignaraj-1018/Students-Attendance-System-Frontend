@@ -16,6 +16,22 @@ export class UserService {
     return this.http.post(`${this.backendUrl+EndPoints.USER_LOGIN}`, loginDetails);  
   }
 
+  signUpUser(loginDetails:any){
+    return this.http.post(`${this.backendUrl+EndPoints.USER_SIGNUP}`, loginDetails);  
+  }
+
+  validateOtp(userDetails:any){
+    return this.http.post(`${this.backendUrl+EndPoints.USER_VALIDATE_OTP}`, userDetails);  
+  }
+
+  forgotPassword(userDetails:any){
+    return this.http.post(`${this.backendUrl+EndPoints.USER_FORGOT_PASSWORD}`, userDetails);  
+  }
+
+  resendOtp(userDetails:any){
+    return this.http.post(`${this.backendUrl+EndPoints.USER_RESEND_OTP}`, userDetails);
+  }
+
   resetPassword(userDetails: any){
     return this.http.post(this.backendUrl+EndPoints.USER_RESET_PASSWORD,userDetails);
   }

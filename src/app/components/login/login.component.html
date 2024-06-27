@@ -18,21 +18,15 @@
                     <input id="email" name="email" type="email" autoComplete="email" required class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-foreground placeholder-muted-foreground focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm" placeholder="Email address" [(ngModel)]="userEmail"/>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <Label htmlFor="password" class="flex text-lg font-semibold">Password</Label>
+                    <div class="flex justify-between items-center">
+                        <Label htmlFor="password" class="flex text-lg font-semibold">Password</Label>
+                        <div class="text-sm">
+                            <a href="/forgot-password" class="font-medium text-primary hover:text-primary/90" prefetch={false}>
+                            Forgot your password?
+                            </a>
+                        </div>
+                    </div>
                     <input id="password" name="password" type="password" autoComplete="current-password" required class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-foreground placeholder-muted-foreground focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm" placeholder="Password" [(ngModel)]="password"/>
-                </div>
-            </div>
-            <div class="flex flex-row items-center justify-between">
-                <div class="flex items-center">
-                    <input type="checkbox" id="remember-me" name="remember-me" />
-                    <Label htmlFor="remember-me" class="ml-2 block text-sm text-muted-foreground">
-                    Remember me
-                    </Label>
-                </div>
-                <div class="text-sm">
-                    <a href="/forgot-password" class="font-medium text-primary hover:text-primary/90" prefetch={false}>
-                    Forgot your password?
-                    </a>
                 </div>
             </div>
             <div class="flex">

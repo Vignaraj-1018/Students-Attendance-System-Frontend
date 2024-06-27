@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { UserService } from './services/user-service/user.service';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { HelperService } from './services/helper/helper.service';
 
 @Component({
   selector: 'app-root',
@@ -13,8 +14,10 @@ import { FooterComponent } from './components/footer/footer.component';
 })
 export class AppComponent {
   title = 'Students-Attendance-System';
-  constructor(@Inject(UserService) private userService:UserService) {}
+  constructor(@Inject(UserService) private userService:UserService, @Inject(HelperService) private helperService:HelperService) {}
 
   ngOnInit(): void {
+    this.helperService.getLoginStatus();
+    console.log(this.helperService.userInfo);
   }
 }
