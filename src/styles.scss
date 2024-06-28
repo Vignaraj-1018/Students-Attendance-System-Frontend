@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'ngx-toastr/toastr';
 
 .app-container {
     margin: 0;

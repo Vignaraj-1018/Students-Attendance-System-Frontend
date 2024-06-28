@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user-service/user.service';
 import { HelperService } from '../../services/helper/helper.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-validate-otp',
@@ -16,7 +17,7 @@ export class ValidateOtpComponent {
   otpDigits: string[] = ['', '', '', '', '', ''];
   currentFocus: number = 0;
 
-  constructor(@Inject(UserService)private userService: UserService, @Inject(HelperService)private helperService: HelperService, private router:Router) { }
+  constructor(@Inject(UserService)private userService: UserService, @Inject(HelperService)private helperService: HelperService, private router:Router, private toastr:ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -54,15 +55,28 @@ export class ValidateOtpComponent {
   submitOtp(event:Event){
     event.preventDefault();
     console.log('OTP submitted:', this.otpDigits.join(''));
+    let otp = this.otpDigits.join('');
+    if (otp.length != 6){
+      this.toastr.warning("Please enter a valid 6 - digit OTP");
+      return;
+    }
+    
     let data = {
       userEmail: this.helperService.getUserEmail(),
-      otp:  this.otpDigits.join('')
+      otp:  otp
     }
 
-    this.userService.validateOtp(data).subscribe((resp:any)=>{
-      // console.log(resp);
-      this.helperService.validateOtp();
-      // this.router.navigateByUrl('/dashboard');
+    this.userService.validateOtp(data).subscribe({
+      next:(resp:any)=>{
+        // console.log(resp);
+        this.helperService.validateOtp();
+        this.toastr.success("OTP validated successfully!");
+        // this.router.navigateByUrl('/dashboard');
+      },
+      error:(err:any)=>{
+        console.log(err);
+        this.toastr.error(err.error?.message);
+      }
     });
   }
 

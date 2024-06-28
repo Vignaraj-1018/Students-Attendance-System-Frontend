@@ -4,6 +4,7 @@ import { UserService } from '../../services/user-service/user.service';
 import { Router } from '@angular/router';
 import { HelperService } from '../../services/helper/helper.service';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-forgot-password',
@@ -18,7 +19,7 @@ export class ForgotPasswordComponent {
   otpValidated: boolean = false;
   password: string = '';
 
-  constructor(@Inject(UserService)private userService:UserService, private router:Router){}
+  constructor(@Inject(UserService)private userService:UserService, private router:Router, private toastr:ToastrService){}
 
   ngOnInit() {
     let forgotPassword = localStorage.getItem('forgotPassword');
@@ -31,20 +32,35 @@ export class ForgotPasswordComponent {
   submitEmail(event: Event){
     event.preventDefault();
     console.log(this.userEmail);
+    if(!this.userEmail){
+      this.toastr.warning('Please enter a valid email address');
+      return;
+    }
     let data = {
       userEmail: this.userEmail
     }
 
-    this.userService.forgotPassword(data).subscribe((resp:any)=>{
-      // console.log(resp);
-      localStorage.setItem('forgotPassword', JSON.stringify({userEmail:this.userEmail, otpValidated:false}));
-      this.router.navigateByUrl('/validate-otp');
+    this.userService.forgotPassword(data).subscribe({
+      next:(resp)=>{
+        // console.log(resp);
+        localStorage.setItem('forgotPassword', JSON.stringify({userEmail:this.userEmail, otpValidated:false}));
+        this.router.navigateByUrl('/validate-otp');
+        this.toastr.success('Forgot Password Request Raised Successfully');
+      },
+      error:(err)=>{
+        this.toastr.error(err.error?.message);
+        console.log(err);
+      }
     });
   }
 
   submitPassword(event:Event){
     event.preventDefault();
     console.log(this.password);
+    if(!this.password){
+      this.toastr.warning('Please enter a password');
+      return;
+    }
     let forgotPassword = localStorage.getItem('forgotPassword');
     if(forgotPassword && JSON.parse(forgotPassword).otpValidated){
       this.userEmail =JSON.parse(forgotPassword).userEmail;
@@ -53,10 +69,17 @@ export class ForgotPasswordComponent {
       userEmail: this.userEmail,
       password:  this.password
     }
-    this.userService.resetPassword(data).subscribe((resp:any)=>{
-      console.log(resp);
-      localStorage.removeItem('forgotPassword');
-      this.router.navigateByUrl('/login');
+    this.userService.resetPassword(data).subscribe({
+      next:(resp:any)=>{
+        console.log(resp);
+        localStorage.removeItem('forgotPassword');
+        this.router.navigateByUrl('/login');
+        this.toastr.success('Password reset successfully');
+      },
+      error:(err:any)=>{
+        this.toastr.error(err.error?.message);
+        console.log(err);
+      }
     });
   }
 

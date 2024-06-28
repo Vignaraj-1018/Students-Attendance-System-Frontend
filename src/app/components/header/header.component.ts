@@ -13,9 +13,11 @@ import { HelperService } from '../../services/helper/helper.service';
 export class HeaderComponent {
 
   constructor(public router: Router, @Inject(HelperService)private helperService: HelperService){
-    this.helperService.currentMessage.subscribe(msg=>{
-      if(msg == 'userLoggedIn'){
-        this.getLoginStatus();
+    this.helperService.currentMessage.subscribe({
+      next:msg=>{
+        if(msg == 'userLoggedIn'){
+          this.getLoginStatus();
+        }
       }
     })
   }
