@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { EndPoints } from '../../constants';
+import { BACKEND_API_URL, EndPoints } from '../../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
   
-  private backendUrl:string  = 'https://student-attendance-api.el.r.appspot.com';
+  private backendUrl:string  = BACKEND_API_URL;
 
   loginUser(loginDetails: any){
     return this.http.post(`${this.backendUrl+EndPoints.USER_LOGIN}`, loginDetails);  

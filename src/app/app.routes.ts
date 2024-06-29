@@ -6,13 +6,14 @@ import { ValidateOtpComponent } from './components/validate-otp/validate-otp.com
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
     {path:"", component:HomeComponent},
     {path: 'login', component: LoginComponent},
     {path: 'signup', component: SignupComponent},
     {path:'validate-otp', component:ValidateOtpComponent},
-    {path:'dashboard', component:DashboardComponent},
-    {path: 'profile', component:ProfileComponent},
+    {path:'dashboard', component:DashboardComponent, canActivate: [authGuard]},
+    {path: 'profile', component:ProfileComponent, canActivate: [authGuard]},
     {path: 'forgot-password', component:ForgotPasswordComponent}
 ];

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
@@ -8,6 +9,7 @@ import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 export class HelperService {
 
   userInfo:any;
+  isAuthenticated:boolean = false;
   private messageSubject = new BehaviorSubject<string>('');
   
   constructor(private router:Router) { }
@@ -21,6 +23,8 @@ export class HelperService {
 
   login(userDetails:any){
     this.userInfo = userDetails;
+    this.isAuthenticated = true;
+    localStorage.setItem("JWT_TOKEN", this.userInfo.jwtToken);
     localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
   }
 
@@ -47,9 +51,15 @@ export class HelperService {
     }
   }
 
+  isLoggedIn(){
+    return !!localStorage.getItem('userInfo');
+  }
+
   logOut(){
     this.userInfo = null;
+    this.isAuthenticated = false;
     localStorage.removeItem('userInfo');
+    localStorage.removeItem("JWT_TOKEN");
     this.router.navigateByUrl('/');
   }
 
@@ -86,5 +96,18 @@ export class HelperService {
   
   stopLoader(){
     this.sendMessage("stop-loader");
+  }
+
+  isJWTExpired(){
+    let token = localStorage.getItem('JWT_TOKEN');
+    if(!token) return true;
+
+    let decoded = jwtDecode(token);
+    if (!decoded.exp) return true;
+
+    let expirationDate = new Date(decoded.exp * 1000);
+    let currentDate = new Date();
+
+    return expirationDate < currentDate;
   }
 }

@@ -9,4 +9,8 @@ export class EndPoints{
     public static USER_ENABLE_NOTIFICATION = '/user/enableNotification';
     public static USER_DISABLE_NOTIFICATION = '/user/disableNotification';
     public static USER_CONTACT = '/user/contactMe';
+
+    public static ATTENDANCE_SUMMARY = '/attendance/summary';
 }
+
+export const BACKEND_API_URL = "http://localhost:8080";
