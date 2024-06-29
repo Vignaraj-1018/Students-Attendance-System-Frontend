@@ -13,4 +13,4 @@ export class EndPoints{
     public static ATTENDANCE_SUMMARY = '/attendance/summary';
 }
 
-export const BACKEND_API_URL = "http://localhost:8080";
+export const BACKEND_API_URL = "https://student-attendance-api.el.r.appspot.com";
