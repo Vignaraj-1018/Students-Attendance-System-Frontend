@@ -34,6 +34,8 @@ export class SignupComponent {
       name: this.name
     }
 
+    this.helperService.startLoader();
+
     this.UserService.signUpUser(data).subscribe({
       next:resp=>{
         console.log(resp);
@@ -41,10 +43,12 @@ export class SignupComponent {
         this.helperService.sendMessage("userLoggedIn");
         this.router.navigateByUrl('/validate-otp');
         this.toastr.success("User Created Successfully!");
+        this.helperService.stopLoader();
       },
       error:err=>{
         console.log(err);
         this.toastr.error(err.error?.message);
+        this.helperService.stopLoader();
       }
     });
   }

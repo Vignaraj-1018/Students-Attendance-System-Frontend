@@ -79,4 +79,12 @@ export class HelperService {
       this.router.navigateByUrl('/forgot-password')
     }
   }
+
+  startLoader(){
+    this.sendMessage("start-loader");
+  }
+  
+  stopLoader(){
+    this.sendMessage("stop-loader");
+  }
 }

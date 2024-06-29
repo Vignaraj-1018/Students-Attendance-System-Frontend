@@ -65,6 +65,7 @@ export class ValidateOtpComponent {
       userEmail: this.helperService.getUserEmail(),
       otp:  otp
     }
+    this.helperService.startLoader();
 
     this.userService.validateOtp(data).subscribe({
       next:(resp:any)=>{
@@ -72,10 +73,13 @@ export class ValidateOtpComponent {
         this.helperService.validateOtp();
         this.toastr.success("OTP validated successfully!");
         // this.router.navigateByUrl('/dashboard');
+        this.helperService.stopLoader();
+        
       },
       error:(err:any)=>{
         console.log(err);
         this.toastr.error(err.error?.message);
+        this.helperService.stopLoader();
       }
     });
   }
@@ -84,8 +88,18 @@ export class ValidateOtpComponent {
     let data = {
       userEmail: this.helperService.getUserEmail(),
     }
-    this.userService.resendOtp(data).subscribe((resp:any)=>{
+    this.helperService.startLoader();
+
+    this.userService.resendOtp(data).subscribe({
+      next:(resp:any)=>{
       console.log(resp);
+      this.helperService.stopLoader();
+    },
+      error:(err:any)=>{
+        console.log(err);
+        this.toastr.error(err.error?.message);
+        this.helperService.stopLoader();
+      }
     });
   }
 }

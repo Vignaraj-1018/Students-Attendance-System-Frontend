@@ -19,7 +19,7 @@ export class ForgotPasswordComponent {
   otpValidated: boolean = false;
   password: string = '';
 
-  constructor(@Inject(UserService)private userService:UserService, private router:Router, private toastr:ToastrService){}
+  constructor(@Inject(UserService)private userService:UserService, private router:Router, private toastr:ToastrService, @Inject(HelperService) private helperService:HelperService){}
 
   ngOnInit() {
     let forgotPassword = localStorage.getItem('forgotPassword');
@@ -39,6 +39,7 @@ export class ForgotPasswordComponent {
     let data = {
       userEmail: this.userEmail
     }
+    this.helperService.startLoader();
 
     this.userService.forgotPassword(data).subscribe({
       next:(resp)=>{
@@ -46,10 +47,12 @@ export class ForgotPasswordComponent {
         localStorage.setItem('forgotPassword', JSON.stringify({userEmail:this.userEmail, otpValidated:false}));
         this.router.navigateByUrl('/validate-otp');
         this.toastr.success('Forgot Password Request Raised Successfully');
+        this.helperService.stopLoader();
       },
       error:(err)=>{
         this.toastr.error(err.error?.message);
         console.log(err);
+        this.helperService.stopLoader();
       }
     });
   }
@@ -69,16 +72,20 @@ export class ForgotPasswordComponent {
       userEmail: this.userEmail,
       password:  this.password
     }
+    this.helperService.startLoader();
+    
     this.userService.resetPassword(data).subscribe({
       next:(resp:any)=>{
         console.log(resp);
         localStorage.removeItem('forgotPassword');
         this.router.navigateByUrl('/login');
         this.toastr.success('Password reset successfully');
+        this.helperService.stopLoader();
       },
       error:(err:any)=>{
         this.toastr.error(err.error?.message);
         console.log(err);
+        this.helperService.stopLoader();
       }
     });
   }

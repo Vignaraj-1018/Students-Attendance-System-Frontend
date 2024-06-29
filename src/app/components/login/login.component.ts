@@ -31,6 +31,8 @@ export class LoginComponent {
       password:  this.password
     }
 
+    this.helperService.startLoader();
+
     this.UserService.loginUser(data).subscribe({
       next:(resp:any)=>{
         // console.log(resp);
@@ -43,10 +45,12 @@ export class LoginComponent {
         else{
           this.router.navigateByUrl('/validate-otp');
         }
+        this.helperService.stopLoader();
       },
       error:(err:any)=>{
         // console.log(err);
         this.toastr.error("Invalid credentials");
+        this.helperService.stopLoader();
       }
     });
     
