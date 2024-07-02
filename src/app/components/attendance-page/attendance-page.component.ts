@@ -146,7 +146,7 @@ export class AttendancePageComponent {
             element.totalCount--;
           }
         }
-        element.percentage = (element.presentCount / element.totalCount) * 100;
+        this.updatePercentage(element);
       }
     });
     // console.log(this.currentAttendance);
@@ -165,11 +165,23 @@ export class AttendancePageComponent {
             element.totalCount--;
           }
         }
-        element.percentage = (element.presentCount / element.totalCount) * 100;
+        this.updatePercentage(element);
       }
     });
     // console.log(this.currentAttendance);
     this.updateAttendance();
+  }
+
+  updatePercentage(element:any){
+    element.percentage = (element.presentCount / element.totalCount) * 100;
+        let percentage = 0;
+        let total = 0;
+        this.attendanceDetails.subjectList.forEach((element:any) =>{
+          percentage += element.percentage;
+          total += 1;
+        });
+        this.attendanceDetails.averagePercentage = percentage / total;
+        this.attendanceDetails.averagePercentage = this.attendanceDetails.averagePercentage.toFixed(2);
   }
 
   editSubject(subject:any){

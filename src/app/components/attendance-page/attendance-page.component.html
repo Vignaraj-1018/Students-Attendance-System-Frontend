@@ -28,7 +28,7 @@
                     Subject List
                 </p>
                 <div class="flex gap-2">
-                    <button class="relative flex w-full justify-center rounded-md border bg-accent text-white py-2 px-4 text-sm font-medium hover:shadow-lg" (click)="addNewSubject()">
+                    <button class="relative flex w-full justify-center rounded-md border bg-accent text-white py-2 px-4 text-sm font-medium hover:shadow-lg select-none" (click)="addNewSubject()">
                         Add Subject
                     </button>
                 </div>
@@ -61,8 +61,8 @@
                         <td class="border-2 text-center px-4 py-5">{{subject.percentage | number:'2.2-2'}} %</td>
                         <td class="border-2 text-center px-4 py-5">
                             <div class="flex w-full justify-center gap-4 items-center">
-                                <img src="assets/edit-icon.svg" alt="Edit" class="flex h-6 w-6 cursor-pointer" (click)="editSubject(subject)">
-                                <img src="assets/delete-icon.svg" alt="Edit" class="flex h-6 w-6 cursor-pointer" (click)="deleteSubject(subject)">
+                                <img src="assets/edit-icon.svg" alt="Edit" class="flex h-6 w-6 cursor-pointer select-none" (click)="editSubject(subject)">
+                                <img src="assets/delete-icon.svg" alt="Edit" class="flex h-6 w-6 cursor-pointer select-none" (click)="deleteSubject(subject)">
                             </div>
                         </td>
                     </tr>
@@ -95,7 +95,7 @@
                 <input name="absentCount" type="number" id="absentCount" class="w-52 relative flex rounded-md border border-gray-300 px-3 py-2 focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm" [(ngModel)]="absentCount">
             </div>
             <div class="flex">
-                <Button type="submit" class="relative flex w-full justify-center rounded-md text-white bg-accent py-2 px-4 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+                <Button type="submit" class="relative flex w-full justify-center rounded-md text-white bg-accent py-2 px-4 text-sm font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 select-none">
                     Add
                 </Button> 
             </div>

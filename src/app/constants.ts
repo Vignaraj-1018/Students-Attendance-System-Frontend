@@ -17,4 +17,4 @@ export class EndPoints{
 
 }
 
-export const BACKEND_API_URL = "http://localhost:8080";
+export const BACKEND_API_URL = "https://student-attendance-api.el.r.appspot.com";
