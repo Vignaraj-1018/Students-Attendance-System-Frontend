@@ -30,11 +30,11 @@ export class HelperService {
 
   getUserDetails(){
     if(this.userInfo){
-      return this.userInfo;
+      return this.userInfo.userDetails;
     }
     else{
       this.userInfo = localStorage.getItem('userInfo');
-      this.userInfo = JSON.parse(this.userInfo);
+      this.userInfo = JSON.parse(this.userInfo.userDetails);
       return this.userInfo;
     }
   }

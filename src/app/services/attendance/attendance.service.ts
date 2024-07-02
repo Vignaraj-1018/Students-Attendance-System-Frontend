@@ -15,5 +15,17 @@ export class AttendanceService {
   getAttendanceSummary(userId:string){
     return this.http.get(`${this.backendUrl + EndPoints.ATTENDANCE_SUMMARY}?userId=${userId}`);
   }
+
+  updateAttendance(attendanceDetails:any){
+    return this.http.put(`${this.backendUrl + EndPoints.ATTENDANCE_UPDATE}`,attendanceDetails);
+  }
+
+  deleteAttendance(attendanceDetails:any){
+    return this.http.delete(`${this.backendUrl + EndPoints.ATTENDANCE_DELETE}`,attendanceDetails);
+  }
+
+  getAttendanceById(attendanceId:string | null){
+    return this.http.get(`${this.backendUrl + EndPoints.ATTENDANCE_GET_BY_ID}?attendanceId=${attendanceId}`);
+  }
   
 }
