@@ -36,7 +36,19 @@ export class UserService {
     return this.http.post(this.backendUrl+EndPoints.USER_RESET_PASSWORD,userDetails);
   }
 
+  enableNotification(userDetails: any){
+    return this.http.post(this.backendUrl+EndPoints.USER_ENABLE_NOTIFICATION,userDetails);
+  }
+
+  disableNotification(userDetails: any){
+    return this.http.post(this.backendUrl+EndPoints.USER_DISABLE_NOTIFICATION,userDetails);
+  }
+
   welcomeUser(): Observable<any>{
     return this.http.get(this.backendUrl);
+  }
+
+  contactMe(messageDetails:any){
+    return this.http.post(this.backendUrl + EndPoints.USER_CONTACT, messageDetails);
   }
 }

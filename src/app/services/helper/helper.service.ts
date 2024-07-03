@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { UserService } from '../user-service/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class HelperService {
   isAuthenticated:boolean = false;
   private messageSubject = new BehaviorSubject<string>('');
   
-  constructor(private router:Router) { }
+  constructor(private router:Router, private userService:UserService) { }
 
 
   currentMessage = this.messageSubject.asObservable();
@@ -109,5 +110,39 @@ export class HelperService {
     let currentDate = new Date();
 
     return expirationDate < currentDate;
+  }
+
+  enableNotification(){
+    this.startLoader();
+    this.userInfo.userDetails.notificationEnabled = true;
+    this.userService.enableNotification(this.userInfo.userDetails).subscribe({
+      next: (resp) => {
+        this.stopLoader();
+        localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+        console.log(resp);
+      },
+      error: (err) => {
+        this.stopLoader();
+        console.log(err);
+      }
+    })
+
+  }
+
+  disableNotification(){
+    this.startLoader();
+    this.userInfo.userDetails.notificationEnabled = false;
+    this.userService.disableNotification(this.userInfo.userDetails).subscribe({
+      next: (resp) => {
+        this.stopLoader();
+        localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+        console.log(resp);
+      },
+      error: (err) => {
+        this.stopLoader();
+        console.log(err);
+      }
+    })
+
   }
 }
