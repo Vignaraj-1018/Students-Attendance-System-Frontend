@@ -19,6 +19,6 @@ export class AppComponent {
 
   ngOnInit(): void {
     this.helperService.getLoginStatus();
-    console.log(this.helperService.userInfo);
+    // console.log(this.helperService.userInfo);
   }
 }

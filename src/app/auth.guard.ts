@@ -6,7 +6,7 @@ import { HelperService } from './services/helper/helper.service';
 export const authGuard: CanActivateFn = (route, state) => {
   let authService = inject(HelperService);
   let router = inject(Router);
-  console.log(authService.isLoggedIn());
+  // console.log(authService.isLoggedIn());
   if (!authService.isLoggedIn()){
     router.navigateByUrl('/login');
     return false;

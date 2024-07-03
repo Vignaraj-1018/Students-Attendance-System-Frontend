@@ -6,11 +6,12 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
+import { ChartComponent } from '../chart/chart.component';
 
 @Component({
   selector: 'app-attendance-page',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ChartComponent],
   templateUrl: './attendance-page.component.html',
   styleUrl: './attendance-page.component.scss'
 })
@@ -32,13 +33,14 @@ export class AttendancePageComponent {
   userDetails:any = this.helperService.getUserDetails();
   modalDisplay: string = '';
   selectedSubjectId: any;
+  chartData: any[] = [];
 
   ngOnInit(){
     this.route.paramMap.subscribe((params: ParamMap) => {
         this.attendanceId = params.get('attendanceId');
     });
     this.fetchAttendanceDetails();
-    console.log(this.userDetails.userId);
+    // console.log(this.userDetails.userId);
   }
 
   fetchAttendanceDetails(){
@@ -48,11 +50,12 @@ export class AttendancePageComponent {
     this.helperService.startLoader();
     this.attendanceService.getAttendanceById(this.attendanceId).subscribe({
       next:(response: any) => {
-      console.log(response);
+      // console.log(response);
       this.attendanceDetails = response
       this.attendanceDetails.averagePercentage = this.attendanceDetails.averagePercentage.toFixed(2);
       this.attendanceDetails.userId = this.userDetails.userId;
       this.helperService.stopLoader();
+      this.prepareChartData();
       },
       error:(err)=>{
         console.log(err);
@@ -93,15 +96,16 @@ export class AttendancePageComponent {
       subjectId: uuidv4()
     }
 
-    console.log(data, this.attendanceDetails);
+    // console.log(data, this.attendanceDetails);
     this.attendanceDetails.subjectList.push(data);
     this.helperService.startLoader();
     this.attendanceService.updateAttendance(this.attendanceDetails).subscribe({
       next:(resp:any)=>{
-        console.log(resp);
+        // console.log(resp);
         this.toastr.success("New Subject Added successfully!");
         this.helperService.stopLoader();
         this.cancelAddSubject();
+        this.prepareChartData();
       },
       error:(err:any)=>{
         console.log(err);
@@ -119,10 +123,11 @@ export class AttendancePageComponent {
     this.helperService.startLoader();
     this.attendanceService.updateAttendance(this.attendanceDetails).subscribe({
       next:(resp:any)=>{
-        console.log(resp);
+        // console.log(resp);
         // this.toastr.success("New Subject Added successfully!");
         this.helperService.stopLoader();
         this.cancelAddSubject();
+        this.prepareChartData();
       },
       error:(err:any)=>{
         console.log(err);
@@ -202,14 +207,14 @@ export class AttendancePageComponent {
         subject.percentage = (subject.presentCount / subject.totalCount) * 100;
       }
     });
-    console.log(this.attendanceDetails);
+    // console.log(this.attendanceDetails);
     this.updateAttendance();
     this.cancelAddSubject();
   }
 
   createSubject(event:Event){
     event.preventDefault();
-    console.log(this.subjectName, this.presentCount, this.absentCount);
+    // console.log(this.subjectName, this.presentCount, this.absentCount);
     if(!this.subjectName || !this.presentCount){
       this.toastr.warning("Please fill all required fields!");
       return;
@@ -227,10 +232,30 @@ export class AttendancePageComponent {
     if(!window.confirm("Are you sure you want to delete this subject: " + subject.name)){
       return;
     }
-    console.log(subject);
+    // console.log(subject);
     this.attendanceDetails.subjectList = this.attendanceDetails.subjectList.filter((s:any) => s.subjectId!== subject.subjectId);
     this.updateAttendance();
     this.toastr.success("Subject deleted successfully!");
+  }
+
+  prepareChartData(){
+    this.chartData = [];
+    let backgroundColorTemplate = {'0-75':'#f75050','76-100':'#5252eb'};
+    this.attendanceDetails.subjectList.forEach((sub:any)=>{
+      let bgColor;
+      if(parseInt(sub.percentage)>=75){
+        bgColor = backgroundColorTemplate['76-100']
+      }
+      else{
+        bgColor = backgroundColorTemplate['0-75']
+      }
+      this.chartData.push({
+        label: sub.name,
+        y: sub.percentage,
+        color: bgColor
+      });
+    });
+    // console.log(this.chartData);
   }
 
 }

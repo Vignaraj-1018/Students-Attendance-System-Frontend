@@ -31,7 +31,7 @@ export class DashboardComponent {
 
   ngOnInit() {
     // this.userId = ;
-    console.log(this.userDetails.userId);
+    // console.log(this.userDetails.userId);
     this.fetchAttendanceSummary();
     this.prepareAcademicYearList();
   }
@@ -40,7 +40,7 @@ export class DashboardComponent {
     this.helperService.startLoader();
     this.attendanceService.getAttendanceSummary(this.userDetails.userId).subscribe({
       next:(resp) => {
-        console.log(resp);
+        // console.log(resp);
         this.attendanceSummary = resp;
         this.helperService.stopLoader();
       },
@@ -71,7 +71,7 @@ export class DashboardComponent {
 
   createSemester(event:Event){
     event.preventDefault();
-    console.log(this.selectedAcademicYear, this.selectedSemester);
+    // console.log(this.selectedAcademicYear, this.selectedSemester);
     if(!this.selectedAcademicYear ||!this.selectedSemester){
       this.toastr.warning("Please select valid academic year and semester!");
       return;
@@ -95,7 +95,7 @@ export class DashboardComponent {
 
     this.attendanceService.updateAttendance(data).subscribe({
       next:(resp)=>{
-        console.log(resp);
+        // console.log(resp);
         this.toastr.success("New Semester Added successfully!");
         this.cancelSemester();
         this.helperService.stopLoader();
@@ -125,7 +125,7 @@ export class DashboardComponent {
   }
 
   openAttendance(sem:any){
-    console.log(sem);
+    // console.log(sem);
     this.router.navigateByUrl(`/attendance/${sem.attendanceId}`);
   }
 
