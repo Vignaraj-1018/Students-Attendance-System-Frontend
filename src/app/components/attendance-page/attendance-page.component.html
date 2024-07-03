@@ -8,7 +8,7 @@
                 <div class="flex sm:w-1/2 border-2 rounded-lg p-5 gap-5">
                     <div class="flex flex-col gap-4 w-full">
                         <p class="flex text-2xl font-semibold">Subject Wise Performance</p>
-                        <app-chart [chartData]="chartData"></app-chart>
+                        <app-chart *ngIf="showChart" [labeldata]="labeldata" [realdata]="realdata" [colordata]="colordata"></app-chart>
                     </div>
                 </div>
                 <div class="flex flex-col sm:w-1/2 p-5 gap-5">

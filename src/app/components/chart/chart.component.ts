@@ -1,46 +1,67 @@
 import { Component, Input, SimpleChanges } from '@angular/core';
-import { CanvasJS, CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
-import 'zone.js';
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables)
 
 @Component({
   selector: 'app-chart',
   standalone: true,
-  imports: [CanvasJSAngularChartsModule],
+  imports: [],
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.scss'
 })
 export class ChartComponent {
 
+  mychar: any;
 
-  @Input() chartData: any;
-
-  chart: any;
+  @Input()labeldata: any[] = [];
+  @Input()realdata: number[] = [];
+  @Input()colordata: string[] = [];
   
   ngOnInit(){
-    this.showChart();
+    this.showBarChart();
   }
 
   ngOnChanges(changes: SimpleChanges){
-    this.showChart();
+    // console.log(this.mychar);
+    if(this.mychar){
+      this.mychar.destroy();
+    }
+    this.showBarChart();
   }
 
-  showChart(){
-    if(!this.chartData){
-      return;
+  showBarChart(){
+    // console.log(this.labeldata, this.realdata, this.colordata);
+    if(this.mychar){
+      this.mychar.destroy();
     }
-    this.chart = new CanvasJS.Chart("chartContainer", {
-      axisY:{
-        includeZero: true,
-        maximum: 100
+    this.mychar = new Chart('barChart', {
+      type: 'bar',
+      data: {
+        labels: this.labeldata,
+        datasets: [
+          {
+            label: 'Percentage',
+            data: this.realdata,
+            backgroundColor: this.colordata,
+          }
+        ]
       },
-      data: [              
-      {
-        type: "column",
-        dataPoints: this.chartData
-      }
-      ]
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+          }
+        },
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false,
+          }
+        }
+      },
+
     });
-    this.chart.render();
   }
 
 

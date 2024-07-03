@@ -33,7 +33,11 @@ export class AttendancePageComponent {
   userDetails:any = this.helperService.getUserDetails();
   modalDisplay: string = '';
   selectedSubjectId: any;
-  chartData: any[] = [];
+
+  labeldata: any[] = [];
+  realdata: number[] = [];
+  colordata: string[] = [];
+  showChart: boolean = false;
 
   ngOnInit(){
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -239,8 +243,12 @@ export class AttendancePageComponent {
   }
 
   prepareChartData(){
-    this.chartData = [];
+    this.showChart = false;
+    this.labeldata = [];
+    this.realdata = [];
+    this.colordata = [];
     let backgroundColorTemplate = {'0-75':'#f75050','76-100':'#5252eb'};
+    
     this.attendanceDetails.subjectList.forEach((sub:any)=>{
       let bgColor;
       if(parseInt(sub.percentage)>=75){
@@ -249,12 +257,12 @@ export class AttendancePageComponent {
       else{
         bgColor = backgroundColorTemplate['0-75']
       }
-      this.chartData.push({
-        label: sub.name,
-        y: sub.percentage,
-        color: bgColor
-      });
+      this.labeldata.push(sub.name);
+      this.realdata.push(sub.percentage);
+      this.colordata.push(bgColor);
     });
+    
+    this.showChart = true;
     // console.log(this.chartData);
   }
 
