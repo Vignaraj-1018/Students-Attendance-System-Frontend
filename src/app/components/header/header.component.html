@@ -1,7 +1,7 @@
 <div class="flex flex-row h-20 bg-[#b9b9b9] text-[#212529] p-4 justify-between items-center">
-    <div class="flex items-center gap-3 p-2" (click)="gotoHome()">
+    <div class="flex items-center gap-3 p-2 select-none" (click)="gotoHome()">
         <img src="./assets/logo.svg" alt="Logo" class="flex h-10 w-10">
-        <p class="sm:flex hidden text-xl font-semibold select-none">Student Attendance Tracker</p>
+        <p class="sm:flex hidden text-xl font-semibold">Student Attendance Tracker</p>
     </div>
     <div class="sm:flex hidden flex-row gap-10 text-xl font-semibold">
         <div *ngIf="loginStatus" class="relative group" (click)="gotoDashboard()">
@@ -12,14 +12,14 @@
             <p class="flex cursor-pointer p-1">Profile</p>
             <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accent transition-transform transform origin-left scale-x-0 group-hover:scale-x-100"></span>
         </div>
-        <div *ngIf="!loginStatus" class="flex py-1 px-2 rounded-xl cursor-pointer items-center justify-center border border-accent hover:bg-accent hover:text-secondary" (click)="gotoLogin()">
+        <div *ngIf="!loginStatus" class="flex py-1 px-2 rounded-xl cursor-pointer items-center justify-center border border-accent hover:bg-accent hover:text-secondary select-none" (click)="gotoLogin()">
             <p class="flex">Login</p>
         </div>
-        <div *ngIf="loginStatus" class="flex py-1 px-2 rounded-xl cursor-pointer items-center justify-center border border-accent hover:bg-accent hover:text-secondary" (click)="gotoUser()">
+        <div *ngIf="loginStatus" class="flex py-1 px-2 rounded-xl cursor-pointer items-center justify-center border border-accent hover:bg-accent hover:text-secondary select-none" (click)="gotoUser()">
             <p class="flex">Logout</p>
         </div>
     </div>
-    <div *ngIf="!loginStatus" class="sm:hidden flex py-1 px-2 rounded-xl cursor-pointer items-center justify-center border border-accent hover:bg-accent hover:text-secondary" (click)="gotoLogin()">
+    <div *ngIf="!loginStatus" class="sm:hidden flex py-1 px-2 rounded-xl cursor-pointer items-center justify-center border border-accent hover:bg-accent hover:text-secondary select-none" (click)="gotoLogin()">
       <p class="flex">Login</p>
     </div>
     <div *ngIf="loginStatus" class="flex sm:hidden justify-center items-center" (click)="openMenu()">
@@ -37,7 +37,7 @@
             <div class="flex justify-center items-center p-4" (click)="gotoProfile()">
               <p class="flex text-xl font-semibold">Profile</p>
             </div>
-            <div class="flex py-1 px-2 rounded-xl cursor-pointer items-center justify-center border border-accent hover:bg-accent hover:text-secondary" (click)="gotoUser()">
+            <div class="flex py-1 px-2 rounded-xl cursor-pointer items-center justify-center border border-accent hover:bg-accent hover:text-secondary select-none" (click)="gotoUser()">
               <p class="flex text-xl font-semibold">Logout</p>
           </div>
           </div>
