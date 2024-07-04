@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BACKEND_API_URL, EndPoints } from '../../constants';
+import { BACKEND_API_URL, EndPoints, HELPER_API_URL } from '../../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +50,9 @@ export class UserService {
 
   contactMe(messageDetails:any){
     return this.http.post(this.backendUrl + EndPoints.USER_CONTACT, messageDetails);
+  }
+
+  sendViewCount(data:any){
+    return this.http.post(HELPER_API_URL + "/my_website_analytics/website_view", data);
   }
 }

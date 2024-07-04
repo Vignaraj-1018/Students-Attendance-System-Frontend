@@ -18,3 +18,4 @@ export class EndPoints{
 }
 
 export const BACKEND_API_URL = "https://student-attendance-api.el.r.appspot.com";
+export const HELPER_API_URL = "https://helper-api-vignu.el.r.appspot.com";

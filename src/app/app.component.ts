@@ -20,5 +20,24 @@ export class AppComponent {
   ngOnInit(): void {
     this.helperService.getLoginStatus();
     // console.log(this.helperService.userInfo);
+    if(sessionStorage.getItem("viewAnalyticsSend")){
+      console.log("Old Session");
+    }
+    else{
+      sessionStorage.setItem("viewAnalyticsSend", "true");
+      console.log("New Session");
+      let data = {
+        name:"Student Attendance Tracker - new",
+        url:"https://student-attendance-system-frontend.vercel.app/"
+      }
+      this.userService.sendViewCount(data).subscribe({
+        next:(resp:any)=>{
+          console.log(resp);
+        },
+        error:(err:any)=>{
+          console.log(err);
+        }
+      })
+    }
   }
 }
