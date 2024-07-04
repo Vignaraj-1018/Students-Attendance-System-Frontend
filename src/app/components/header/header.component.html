@@ -1,0 +1,46 @@
+<div class="flex flex-row h-20 bg-[#b9b9b9] text-[#212529] p-4 justify-between items-center">
+    <div class="flex items-center gap-3 p-2 select-none" (click)="gotoHome()">
+        <img src="./assets/logo.svg" alt="Logo" class="flex h-10 w-10">
+        <p class="sm:flex hidden text-xl font-semibold">Student Attendance Tracker</p>
+    </div>
+    <div class="sm:flex hidden flex-row gap-10 text-xl font-semibold">
+        <div *ngIf="loginStatus" class="relative group" (click)="gotoDashboard()">
+            <p class="flex cursor-pointer p-1">Dashboard</p>
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accent transition-transform transform origin-left scale-x-0 group-hover:scale-x-100"></span>
+        </div>
+        <div *ngIf="loginStatus" class="relative group" (click)="gotoProfile()">
+            <p class="flex cursor-pointer p-1">Profile</p>
+            <span class="absolute bottom-0 left-0 w-full h-0.5 bg-accent transition-transform transform origin-left scale-x-0 group-hover:scale-x-100"></span>
+        </div>
+        <div *ngIf="!loginStatus" class="flex py-1 px-2 rounded-xl cursor-pointer items-center justify-center border border-accent hover:bg-accent hover:text-secondary select-none" (click)="gotoLogin()">
+            <p class="flex">Login</p>
+        </div>
+        <div *ngIf="loginStatus" class="flex py-1 px-2 rounded-xl cursor-pointer items-center justify-center border border-accent hover:bg-accent hover:text-secondary select-none" (click)="gotoUser()">
+            <p class="flex">Logout</p>
+        </div>
+    </div>
+    <div *ngIf="!loginStatus" class="sm:hidden flex py-1 px-2 rounded-xl cursor-pointer items-center justify-center border border-accent hover:bg-accent hover:text-secondary select-none" (click)="gotoLogin()">
+      <p class="flex">Login</p>
+    </div>
+    <div *ngIf="loginStatus" class="flex sm:hidden justify-center items-center" (click)="openMenu()">
+        <img src="assets/menu-open-black.svg" alt="MenuOpen" class="flex h-8 w-8">
+    </div>
+    <div *ngIf="openMenuToggle" class="sm:hidden flex absolute top-0 right-0 w-[100vh] h-[100vh] z-40 bg-[#433d3d9c] outer-box" (click)="closeMenuOutside($event)">
+        <div class="flex flex-col absolute h-[100vh] w-[15rem] top-0 right-0 bg-[#eeeeee] z-50 gap-5 p-4">
+          <div class="flex justify-end text-xl" (click)="closeMenu()">
+            <img class='flex h-8 w-8' alt="MenuClose" src="assets/menu-close-black.svg"/>
+          </div>
+          <div class="flex flex-col gap-5">
+            <div class="flex justify-center items-center p-4" (click)="gotoDashboard()">
+              <p class="flex text-xl font-semibold">Dashboard</p>
+            </div>
+            <div class="flex justify-center items-center p-4" (click)="gotoProfile()">
+              <p class="flex text-xl font-semibold">Profile</p>
+            </div>
+            <div class="flex py-1 px-2 rounded-xl cursor-pointer items-center justify-center border border-accent hover:bg-accent hover:text-secondary select-none" (click)="gotoUser()">
+              <p class="flex text-xl font-semibold">Logout</p>
+          </div>
+          </div>
+        </div>
+    </div>
+</div>

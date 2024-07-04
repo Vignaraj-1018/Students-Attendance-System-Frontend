@@ -1,45 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { HelperService } from './helper.service';
-import { AttendanceServiceService } from './attendance-service.service';
+import { Component, Inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { UserService } from './services/user-service/user.service';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { HelperService } from './services/helper/helper.service';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, LoaderComponent],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
-  ngOnInit(): void {
+export class AppComponent {
+  title = 'Students-Attendance-System';
+  constructor(@Inject(UserService) private userService:UserService, @Inject(HelperService) private helperService:HelperService) {}
 
+  ngOnInit(): void {
+    this.helperService.getLoginStatus();
+    // console.log(this.helperService.userInfo);
     if(sessionStorage.getItem("viewAnalyticsSend")){
-      // console.log("Old Session");
+      console.log("Old Session");
     }
     else{
       sessionStorage.setItem("viewAnalyticsSend", "true");
-      // console.log("New Session");
+      console.log("New Session");
       let data = {
-        name:"Student Attendance Tracker",
-        url:"https://student-attendance-tracker.vercel.app/"
+        name:"Student Attendance Tracker - new",
+        url:"https://student-attendance-system-frontend.vercel.app/"
       }
-      this.attendanceService.sendViewCount(data).toPromise()
-      .then((resp) => {
-        // console.log(resp);
-      })
-      .catch((err) => {
-        console.log(err);
+      this.userService.sendViewCount(data).subscribe({
+        next:(resp:any)=>{
+          console.log(resp);
+        },
+        error:(err:any)=>{
+          console.log(err);
+        }
       })
     }
-    
   }
-
-  userInfo: string;
-  constructor(private router: Router, private helperService: HelperService, private attendanceService: AttendanceServiceService){
-    this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    if(this.userInfo){
-      this.helperService.userInfo = this.userInfo;
-      // this.router.navigateByUrl('/dashboard');
-    }
-  }
-  
-  
 }

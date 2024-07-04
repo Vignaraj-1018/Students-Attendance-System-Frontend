@@ -1,13 +1,9 @@
-<div class="main-container">
-  <div class="header">
-    <app-header style="width: 100%;"></app-header>
-  </div>
-  <div class="container">
+<div class="flex flex-col h-screen">
+  <app-header></app-header>
+  <main class="flex-1 overflow-y-auto bg-secondary">
     <router-outlet></router-outlet>
-  </div>
-  <div class="footer">
-    Out of Passion by <a href="https://vignaraj.netlify.app" target="_blank">Vignaraj D</a> &#169; 2023
-  </div>
+  </main>
+  <app-footer></app-footer>
 </div>
 
-<ngx-ui-loader></ngx-ui-loader>
+<app-loader></app-loader>
