@@ -30,11 +30,11 @@ export class ProfileComponent {
     if(this.userInfo.authenticated) {
       this.authStatus = true;
     }
-    console.log(this.userInfo.notificationEnabled);
+    // console.log(this.userInfo.notificationEnabled);
   }
 
   notificationClick(){
-    console.log('notificationClick', this.userInfo.notificationEnabled);
+    // console.log('notificationClick', this.userInfo.notificationEnabled);
     if(this.userInfo.notificationEnabled){
       this.helperService.disableNotification();
     }
@@ -46,7 +46,7 @@ export class ProfileComponent {
 
   handleSubmit(event:Event){
     event.preventDefault();
-    console.log(this.name, this.userEmail, this.message);
+    // console.log(this.name, this.userEmail, this.message);
     if(!this.name || !this.userEmail || !this.message){
       this.toastr.warning("Please Enter all the required fields!");
       return;
@@ -61,7 +61,7 @@ export class ProfileComponent {
     this.helperService.startLoader();
     this.userService.contactMe(data).subscribe({
       next:(resp:any)=>{
-        console.log(resp);
+        // console.log(resp);
         this.toastr.success("Message sent successfully!");
         this.name = "";
         this.userEmail = "";

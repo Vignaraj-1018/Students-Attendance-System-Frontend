@@ -53,7 +53,7 @@ export class HeaderComponent {
 
   closeMenuOutside(event:Event){
     let target = event.target as HTMLElement;
-    console.log(event.target);
+    // console.log(event.target);
     if(target.classList.contains('outer-box')){
       this.openMenuToggle = false;
     }

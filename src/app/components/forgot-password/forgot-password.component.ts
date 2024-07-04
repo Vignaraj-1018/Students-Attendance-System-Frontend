@@ -26,12 +26,12 @@ export class ForgotPasswordComponent {
     if(forgotPassword && JSON.parse(forgotPassword).otpValidated){
       this.otpValidated = true;
     }
-    console.log(this.otpValidated);
+    // console.log(this.otpValidated);
   }
 
   submitEmail(event: Event){
     event.preventDefault();
-    console.log(this.userEmail);
+    // console.log(this.userEmail);
     if(!this.userEmail){
       this.toastr.warning('Please enter a valid email address');
       return;
@@ -59,7 +59,7 @@ export class ForgotPasswordComponent {
 
   submitPassword(event:Event){
     event.preventDefault();
-    console.log(this.password);
+    // console.log(this.password);
     if(!this.password){
       this.toastr.warning('Please enter a password');
       return;
@@ -76,7 +76,7 @@ export class ForgotPasswordComponent {
     
     this.userService.resetPassword(data).subscribe({
       next:(resp:any)=>{
-        console.log(resp);
+        // console.log(resp);
         localStorage.removeItem('forgotPassword');
         this.router.navigateByUrl('/login');
         this.toastr.success('Password reset successfully');

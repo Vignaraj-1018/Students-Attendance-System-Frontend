@@ -119,7 +119,7 @@ export class HelperService {
       next: (resp) => {
         this.stopLoader();
         localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
-        console.log(resp);
+        // console.log(resp);
       },
       error: (err) => {
         this.stopLoader();
@@ -136,7 +136,7 @@ export class HelperService {
       next: (resp) => {
         this.stopLoader();
         localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
-        console.log(resp);
+        // console.log(resp);
       },
       error: (err) => {
         this.stopLoader();

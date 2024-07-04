@@ -21,18 +21,18 @@ export class AppComponent {
     this.helperService.getLoginStatus();
     // console.log(this.helperService.userInfo);
     if(sessionStorage.getItem("viewAnalyticsSend")){
-      console.log("Old Session");
+      // console.log("Old Session");
     }
     else{
       sessionStorage.setItem("viewAnalyticsSend", "true");
-      console.log("New Session");
+      // console.log("New Session");
       let data = {
-        name:"Student Attendance Tracker - new",
-        url:"https://student-attendance-system-frontend.vercel.app/"
+        name:"Student Attendance Tracker",
+        url:"https://student-attendance-tracker.vercel.app"
       }
       this.userService.sendViewCount(data).subscribe({
         next:(resp:any)=>{
-          console.log(resp);
+          // console.log(resp);
         },
         error:(err:any)=>{
           console.log(err);

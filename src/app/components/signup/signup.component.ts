@@ -22,7 +22,7 @@ export class SignupComponent {
 
   handleSubmit(e: Event){
     e.preventDefault();
-    console.log(this.userEmail, this.password);
+    // console.log(this.userEmail, this.password);
     if (!this.userEmail || !this.password || !this.name){
       this.toastr.warning("Please fill all required fields!");
       return;
@@ -38,7 +38,7 @@ export class SignupComponent {
 
     this.UserService.signUpUser(data).subscribe({
       next:resp=>{
-        console.log(resp);
+        // console.log(resp);
         this.helperService.login(resp);
         this.helperService.sendMessage("userLoggedIn");
         this.router.navigateByUrl('/validate-otp');
