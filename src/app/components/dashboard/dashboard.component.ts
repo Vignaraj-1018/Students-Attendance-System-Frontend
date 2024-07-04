@@ -129,4 +129,34 @@ export class DashboardComponent {
     this.router.navigateByUrl(`/attendance/${sem.attendanceId}`);
   }
 
+  sideMenu(event:Event, attendance:any, year:any){
+    event.stopPropagation();
+    // console.log("side Menu Click", attendance, year);
+    if(!confirm(`Are you sure to delete Semester: ${attendance.semester} of ${year.academicYear}?`)){
+      return;
+    }
+
+    this.helperService.startLoader();
+    this.attendanceService.deleteAttendance(attendance.attendanceId).subscribe({
+      next:(resp)=>{
+        // console.log(resp);
+        this.toastr.success("Semester deleted successfully!");
+        this.helperService.stopLoader();
+        this.fetchAttendanceSummary();
+      },
+      error:(err)=>{
+        console.log(err);
+        if(err.status === 401 ){
+          this.helperService.logOut();
+          this.toastr.error("Session Expired! Please Log in again!");
+          this.router.navigateByUrl('/login');
+        }
+        else{
+          this.toastr.error(err.error?.message);
+        }
+        this.helperService.stopLoader();
+      }
+    })
+  }
+
 }

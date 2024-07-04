@@ -20,8 +20,8 @@ export class AttendanceService {
     return this.http.put(`${this.backendUrl + EndPoints.ATTENDANCE_UPDATE}`,attendanceDetails);
   }
 
-  deleteAttendance(attendanceDetails:any){
-    return this.http.delete(`${this.backendUrl + EndPoints.ATTENDANCE_DELETE}`,attendanceDetails);
+  deleteAttendance(attendanceId:any){
+    return this.http.delete(`${this.backendUrl + EndPoints.ATTENDANCE_DELETE}?attendanceId=${attendanceId}`);
   }
 
   getAttendanceById(attendanceId:string | null){

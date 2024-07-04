@@ -7,6 +7,9 @@
             </div>
         </div>
         <div class="flex flex-col gap-10">
+            <div class="flex w-full justify-center text-2xl text-[#838383] font-semibold" *ngIf="!attendanceSummary?.length">
+                There is no existing attendance available, Click New Semester to add!
+            </div>
             <div class="flex flex-col gap-5" *ngFor="let year of attendanceSummary">
                 <div class="flex text-2xl font-semibold gap-3 flex-wrap justify-center sm:justify-start">
                     <p class="flex">Academic Year </p>
@@ -15,9 +18,14 @@
                 <div class="flex flex-row gap-5 flex-wrap">
                     <div class="flex flex-col rounded-lg bg-[#b9b9b9] p-4 cursor-pointer shadow-sm hover:shadow-2xl gap-1 select-none" *ngFor="let sem of year.semestersList" (click)="openAttendance(sem)">
                         <div class="flex flex-col gap-3">
-                            <div class="flex flex-row gap-3 items-center text-xl">
-                                <p class="flex font-semibold">Semester:</p>
-                                <p class="flex">{{sem.semester}}</p>
+                            <div class="flex justify-between">
+                                <div class="flex flex-row gap-3 items-center text-xl">
+                                    <p class="flex font-semibold">Semester:</p>
+                                    <p class="flex">{{sem.semester}}</p>
+                                </div>
+                                <div class="flex z-50" (click)="sideMenu($event, sem, year)">
+                                    <img src="assets/delete-icon-outline.svg" alt="Menu" class="flex h-6 w-6">
+                                </div>
                             </div>
                             <div class="flex flex-row gap-3 items-center text-xl">
                                 <p class="flex font-semibold">Overall Percentage:</p>

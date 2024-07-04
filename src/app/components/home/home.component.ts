@@ -13,6 +13,6 @@ export class HomeComponent {
   router = inject(Router)
 
   gotoLogin(){
-    this.router.navigate(['/login']);
+    this.router.navigate(['/dashboard']);
   }
 }
