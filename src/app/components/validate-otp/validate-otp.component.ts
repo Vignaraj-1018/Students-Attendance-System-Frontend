@@ -54,7 +54,7 @@ export class ValidateOtpComponent {
 
   submitOtp(event:Event){
     event.preventDefault();
-    console.log('OTP submitted:', this.otpDigits.join(''));
+    // console.log('OTP submitted:', this.otpDigits.join(''));
     let otp = this.otpDigits.join('');
     if (otp.length != 6){
       this.toastr.warning("Please enter a valid 6 - digit OTP");
@@ -92,7 +92,7 @@ export class ValidateOtpComponent {
 
     this.userService.resendOtp(data).subscribe({
       next:(resp:any)=>{
-      console.log(resp);
+      // console.log(resp);
       this.helperService.stopLoader();
     },
       error:(err:any)=>{
