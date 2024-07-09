@@ -143,48 +143,60 @@ export class AttendancePageComponent {
 
   onAddPresent(subject:any,type:number){
     // console.log(subject);
-    this.attendanceDetails.subjectList.forEach((element:any) => {
-      if(element.subjectId === subject.subjectId){
-        if(type){
-          element.presentCount++;
-          element.totalCount++;
-        }
-        else{
-          if(element.totalCount > 1 && element.presentCount!==0){
-            element.presentCount--;
-            element.totalCount--;
+    try{
+      this.attendanceDetails.subjectList.forEach((element:any) => {
+        if(element.subjectId === subject.subjectId){
+          if(type){
+            element.presentCount++;
+            element.totalCount++;
           }
           else{
-            this.toastr.warning("Invalid Number of Hours for the Subject!");
+            if(element.totalCount > 1 && element.presentCount!==0){
+              element.presentCount--;
+              element.totalCount--;
+            }
+            else{
+              this.toastr.warning("Invalid Number of Hours for the Subject!");
+              throw new Error("Invalid Number of Hours for the Subject!");
+            }
           }
+          this.updatePercentage(element);
         }
-        this.updatePercentage(element);
-      }
-    });
-    // console.log(this.currentAttendance);
-    this.updateAttendance();
+      });
+      // console.log(this.currentAttendance);
+      this.updateAttendance();
+    }
+    catch(e){
+      // console.log(e);
+    }
   }
 
   onAddAbsent(subject:any,type:number){
     // console.log(subject);
-    this.attendanceDetails.subjectList.forEach((element:any) => {
-      if(element.subjectId === subject.subjectId){
-        if(type){
-          element.totalCount++;
-        }
-        else{
-          if(element.totalCount > 1 && (element.totalCount - element.presentCount)!==0){
-            element.totalCount--;
+    try{
+      this.attendanceDetails.subjectList.forEach((element:any) => {
+        if(element.subjectId === subject.subjectId){
+          if(type){
+            element.totalCount++;
           }
           else{
-            this.toastr.warning("Invalid Number of Hours for the Subject!");
+            if(element.totalCount > 1 && (element.totalCount - element.presentCount)!==0){
+              element.totalCount--;
+            }
+            else{
+              this.toastr.warning("Invalid Number of Hours for the Subject!");
+              throw new Error("Invalid Number of Hours for the Subject!");
+            }
           }
+          this.updatePercentage(element);
         }
-        this.updatePercentage(element);
-      }
-    });
-    // console.log(this.currentAttendance);
-    this.updateAttendance();
+      });
+      // console.log(this.currentAttendance);
+      this.updateAttendance();
+    }
+    catch(e){
+      // console.log(e);
+    }
   }
 
   updatePercentage(element:any){
