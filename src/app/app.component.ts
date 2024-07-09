@@ -26,18 +26,18 @@ export class AppComponent {
     else{
       sessionStorage.setItem("viewAnalyticsSend", "true");
       // console.log("New Session");
-      let data = {
-        name:"Student Attendance Tracker",
-        url:"https://student-attendance-tracker.vercel.app"
-      }
-      this.userService.sendViewCount(data).subscribe({
-        next:(resp:any)=>{
-          // console.log(resp);
-        },
-        error:(err:any)=>{
-          console.log(err);
-        }
-      })
+      // let data = {
+      //   name:"Student Attendance Tracker",
+      //   url:"https://student-attendance-tracker.vercel.app"
+      // }
+      // this.userService.sendViewCount(data).subscribe({
+      //   next:(resp:any)=>{
+      //     // console.log(resp);
+      //   },
+      //   error:(err:any)=>{
+      //     console.log(err);
+      //   }
+      // })
     }
   }
 }

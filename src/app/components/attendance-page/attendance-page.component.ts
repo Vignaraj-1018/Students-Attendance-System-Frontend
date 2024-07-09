@@ -150,9 +150,12 @@ export class AttendancePageComponent {
           element.totalCount++;
         }
         else{
-          if(element.presentCount!==0){
+          if(element.totalCount > 1 && element.presentCount!==0){
             element.presentCount--;
             element.totalCount--;
+          }
+          else{
+            this.toastr.warning("Invalid Number of Hours for the Subject!");
           }
         }
         this.updatePercentage(element);
@@ -170,8 +173,11 @@ export class AttendancePageComponent {
           element.totalCount++;
         }
         else{
-          if((element.totalCount - element.presentCount)!==0){
+          if(element.totalCount > 1 && (element.totalCount - element.presentCount)!==0){
             element.totalCount--;
+          }
+          else{
+            this.toastr.warning("Invalid Number of Hours for the Subject!");
           }
         }
         this.updatePercentage(element);
