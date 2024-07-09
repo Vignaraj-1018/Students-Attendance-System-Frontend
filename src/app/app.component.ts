@@ -37,7 +37,7 @@ export class AppComponent {
         error:(err:any)=>{
           console.log(err);
         }
-      })
+      });
     }
   }
 }

@@ -48,16 +48,16 @@
                         <td class="border-2 text-center px-4 py-5 font-semibold">{{subject.name}}</td>
                         <td class="border-2 text-center px-4 py-5">
                             <div class="flex w-full justify-center gap-4 items-center">
-                                <div class="flex border-2 rounded-lg justify-center items-center w-10 h-10 cursor-pointer hover:shadow-xl" (click)="onAddPresent(subject,0)">-</div>
+                                <div class="flex border-2 rounded-lg justify-center items-center w-10 h-10 cursor-pointer hover:shadow-xl select-none" (click)="onAddPresent(subject,0)">-</div>
                                 <p class="flex font-semibold">{{subject.presentCount}}</p>
-                                <div class="flex border-2 rounded-lg justify-center items-center w-10 h-10 cursor-pointer hover:shadow-xl" (click)="onAddPresent(subject,1)">+</div>
+                                <div class="flex border-2 rounded-lg justify-center items-center w-10 h-10 cursor-pointer hover:shadow-xl select-none" (click)="onAddPresent(subject,1)">+</div>
                             </div>
                         </td>
                         <td class="border-2 text-center px-4 py-5">
                             <div class="flex w-full justify-center gap-4 items-center">
-                                <div class="flex border-2 rounded-lg justify-center items-center w-10 h-10 cursor-pointer hover:shadow-xl" (click)="onAddAbsent(subject,0)">-</div>
+                                <div class="flex border-2 rounded-lg justify-center items-center w-10 h-10 cursor-pointer hover:shadow-xl select-none" (click)="onAddAbsent(subject,0)">-</div>
                                 <p class="flex font-semibold">{{subject.totalCount - subject.presentCount}}</p>
-                                <div class="flex border-2 rounded-lg justify-center items-center w-10 h-10 cursor-pointer hover:shadow-xl" (click)="onAddAbsent(subject,1)">+</div>
+                                <div class="flex border-2 rounded-lg justify-center items-center w-10 h-10 cursor-pointer hover:shadow-xl select-none" (click)="onAddAbsent(subject,1)">+</div>
                             </div>
                         </td>
                         <td class="border-2 text-center px-4 py-5">{{subject.percentage | number:'2.2-2'}} %</td>
