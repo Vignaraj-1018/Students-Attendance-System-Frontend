@@ -100,7 +100,7 @@ export class AttendancePageComponent {
       name: this.subjectName,
       presentCount: this.presentCount,
       totalCount: this.presentCount + this.absentCount,
-      percentage: (this.presentCount / (this.presentCount + this.absentCount)) * 100,
+      percentage: (this.presentCount + this.absentCount) === 0 ? 0 : (this.presentCount / (this.presentCount + this.absentCount)) * 100,
       subjectId: uuidv4()
     }
 
@@ -114,6 +114,7 @@ export class AttendancePageComponent {
         this.helperService.stopLoader();
         this.cancelAddSubject();
         this.prepareChartData();
+        this.updateOverallPercentage();
       },
       error:(err:any)=>{
         console.log(err);
@@ -155,7 +156,7 @@ export class AttendancePageComponent {
             element.totalCount++;
           }
           else{
-            if(element.totalCount > 1 && element.presentCount!==0){
+            if(element.presentCount !== 0){
               element.presentCount--;
               element.totalCount--;
             }
@@ -184,7 +185,7 @@ export class AttendancePageComponent {
             element.totalCount++;
           }
           else{
-            if(element.totalCount > 1 && (element.totalCount - element.presentCount)!==0){
+            if((element.totalCount - element.presentCount)!==0){
               element.totalCount--;
             }
             else{
@@ -205,14 +206,18 @@ export class AttendancePageComponent {
 
   updatePercentage(element:any){
     element.percentage = (element.presentCount / element.totalCount) * 100;
-        let percentage = 0;
-        let total = 0;
-        this.attendanceDetails.subjectList.forEach((element:any) =>{
-          percentage += element.percentage;
-          total += 1;
-        });
-        this.attendanceDetails.averagePercentage = percentage / total;
-        this.attendanceDetails.averagePercentage = this.attendanceDetails.averagePercentage.toFixed(2);
+    this.updateOverallPercentage();
+  }
+
+  updateOverallPercentage(){
+    let percentage = 0;
+    let total = 0;
+    this.attendanceDetails.subjectList.forEach((element:any) =>{
+      percentage += element.percentage;
+      total += 1;
+    });
+    this.attendanceDetails.averagePercentage = percentage / total;
+    this.attendanceDetails.averagePercentage = this.attendanceDetails.averagePercentage.toFixed(2);
   }
 
   editSubject(subject:any){
@@ -235,13 +240,14 @@ export class AttendancePageComponent {
     });
     // console.log(this.attendanceDetails);
     this.updateAttendance();
+    this.updateOverallPercentage();
     this.cancelAddSubject();
   }
 
   createSubject(event:Event){
     event.preventDefault();
     // console.log(this.subjectName, this.presentCount, this.absentCount);
-    if(!this.subjectName || !this.presentCount){
+    if(!this.subjectName){
       this.toastr.warning("Please fill all required fields!");
       return;
     }
@@ -261,6 +267,7 @@ export class AttendancePageComponent {
     // console.log(subject);
     this.attendanceDetails.subjectList = this.attendanceDetails.subjectList.filter((s:any) => s.subjectId!== subject.subjectId);
     this.updateAttendance();
+    this.updateOverallPercentage();
     this.toastr.success("Subject deleted successfully!");
   }
 
