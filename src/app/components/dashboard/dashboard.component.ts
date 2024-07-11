@@ -85,8 +85,8 @@ export class DashboardComponent {
         {
           subjectId : uuidv4(),
           "name" : "Subject - 1",
-          "presentCount" : 1,
-          "totalCount" : 1
+          "presentCount" : 0,
+          "totalCount" : 0
         }
       ]
     }
