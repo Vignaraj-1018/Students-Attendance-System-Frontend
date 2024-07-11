@@ -39,6 +39,8 @@ export class AttendancePageComponent {
   colordata: string[] = [];
   showChart: boolean = false;
 
+  modifiedDate:any;
+
   ngOnInit(){
     this.route.paramMap.subscribe((params: ParamMap) => {
         this.attendanceId = params.get('attendanceId');
@@ -58,6 +60,8 @@ export class AttendancePageComponent {
       this.attendanceDetails = response
       this.attendanceDetails.averagePercentage = this.attendanceDetails.averagePercentage.toFixed(2);
       this.attendanceDetails.userId = this.userDetails.userId;
+      this.modifiedDate = this.attendanceDetails.lastModifiedDate?.slice(0,10);
+      console.log(this.modifiedDate);
       this.helperService.stopLoader();
       this.prepareChartData();
       },
@@ -282,6 +286,14 @@ export class AttendancePageComponent {
     
     this.showChart = true;
     // console.log(this.chartData);
+  }
+
+  updateModifiedDate(event:Event){
+    console.log(event);
+    console.log(this.modifiedDate);
+    this.attendanceDetails.lastModifiedDate = this.modifiedDate;
+    console.log(this.attendanceDetails);
+    this.updateAttendance();
   }
 
 }
