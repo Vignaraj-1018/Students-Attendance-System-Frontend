@@ -18,7 +18,7 @@
                         <app-chart *ngIf="showChart" [labeldata]="labeldata" [realdata]="realdata" [colordata]="colordata"></app-chart>
                     </div>
                 </div>
-                <div class="flex flex-col sm:w-1/2 p-5 gap-5">
+                <div class="flex flex-col border-2 rounded-lg sm:w-1/2 p-5 gap-5">
                     <p class="flex text-2xl font-semibold">Overall Percentage</p>
                     <div class="flex w-full h-full justify-center items-center">
                         <div class="flex h-[15rem] w-[15rem] justify-center items-center rounded-full" [ngStyle]="getProgressCircleStyle(attendanceDetails?.averagePercentage)">
@@ -52,7 +52,7 @@
                         <th class="font-semibold min-w-32">Actions</th>
                     </tr>
                     <tr *ngFor="let subject of attendanceDetails?.subjectList" class="border-2 ">
-                        <td class="border-2 text-center px-4 py-5 font-semibold">{{subject.name}}</td>
+                        <td class="border-2 text-center px-4 py-5 font-semibold max-w-40 truncate" [title]="subject.name">{{subject.name}}</td>
                         <td class="border-2 text-center px-4 py-5">
                             <div class="flex w-full justify-center gap-4 items-center">
                                 <div class="flex border-2 rounded-lg justify-center items-center w-10 h-10 cursor-pointer hover:shadow-xl select-none" (click)="onAddPresent(subject,0)">-</div>

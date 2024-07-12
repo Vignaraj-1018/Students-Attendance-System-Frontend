@@ -286,7 +286,7 @@ export class AttendancePageComponent {
       else{
         bgColor = backgroundColorTemplate['0-75']
       }
-      this.labeldata.push(sub.name);
+      this.labeldata.push(sub.name.slice(0,15));
       this.realdata.push(sub.percentage);
       this.colordata.push(bgColor);
     });
