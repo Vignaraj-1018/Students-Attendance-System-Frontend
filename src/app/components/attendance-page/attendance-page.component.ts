@@ -205,7 +205,12 @@ export class AttendancePageComponent {
   }
 
   updatePercentage(element:any){
-    element.percentage = (element.presentCount / element.totalCount) * 100;
+    if(element.totalCount === 0){
+      element.percentage = 0;
+    }
+    else{
+      element.percentage = (element.presentCount / element.totalCount) * 100;
+    }
     this.updateOverallPercentage();
   }
 
