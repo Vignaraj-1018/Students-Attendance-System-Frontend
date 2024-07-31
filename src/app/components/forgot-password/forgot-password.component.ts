@@ -22,7 +22,7 @@ export class ForgotPasswordComponent {
   constructor(@Inject(UserService)private userService:UserService, private router:Router, private toastr:ToastrService, @Inject(HelperService) private helperService:HelperService){}
 
   ngOnInit() {
-    let forgotPassword = localStorage.getItem('forgotPassword');
+    let forgotPassword = sessionStorage.getItem('forgotPassword');
     if(forgotPassword && JSON.parse(forgotPassword).otpValidated){
       this.otpValidated = true;
     }
@@ -44,7 +44,7 @@ export class ForgotPasswordComponent {
     this.userService.forgotPassword(data).subscribe({
       next:(resp)=>{
         // console.log(resp);
-        localStorage.setItem('forgotPassword', JSON.stringify({userEmail:this.userEmail, otpValidated:false}));
+        sessionStorage.setItem('forgotPassword', JSON.stringify({userEmail:this.userEmail, otpValidated:false}));
         this.router.navigateByUrl('/validate-otp');
         this.toastr.success('Forgot Password Request Raised Successfully');
         this.helperService.stopLoader();
@@ -64,7 +64,7 @@ export class ForgotPasswordComponent {
       this.toastr.warning('Please enter a password');
       return;
     }
-    let forgotPassword = localStorage.getItem('forgotPassword');
+    let forgotPassword = sessionStorage.getItem('forgotPassword');
     if(forgotPassword && JSON.parse(forgotPassword).otpValidated){
       this.userEmail =JSON.parse(forgotPassword).userEmail;
     }
@@ -77,7 +77,7 @@ export class ForgotPasswordComponent {
     this.userService.resetPassword(data).subscribe({
       next:(resp:any)=>{
         // console.log(resp);
-        localStorage.removeItem('forgotPassword');
+        sessionStorage.removeItem('forgotPassword');
         this.router.navigateByUrl('/login');
         this.toastr.success('Password reset successfully');
         this.helperService.stopLoader();

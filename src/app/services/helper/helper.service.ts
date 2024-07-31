@@ -25,8 +25,8 @@ export class HelperService {
   login(userDetails:any){
     this.userInfo = userDetails;
     this.isAuthenticated = true;
-    localStorage.setItem("JWT_TOKEN", this.userInfo.jwtToken);
-    localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+    sessionStorage.setItem("JWT_TOKEN", this.userInfo.jwtToken);
+    sessionStorage.setItem('userInfo', JSON.stringify(this.userInfo));
   }
 
   getUserDetails(){
@@ -34,7 +34,7 @@ export class HelperService {
       return this.userInfo.userDetails;
     }
     else{
-      this.userInfo = localStorage.getItem('userInfo');
+      this.userInfo = sessionStorage.getItem('userInfo');
       this.userInfo = JSON.parse(this.userInfo.userDetails);
       return this.userInfo;
     }
@@ -45,7 +45,7 @@ export class HelperService {
       return this.userInfo.userDetails.userEmail;
     }
     else{
-      let forgotPassword = localStorage.getItem('forgotPassword');
+      let forgotPassword = sessionStorage.getItem('forgotPassword');
       if(forgotPassword){
         return JSON.parse(forgotPassword).userEmail;
       }
@@ -53,20 +53,20 @@ export class HelperService {
   }
 
   isLoggedIn(){
-    return !!localStorage.getItem('userInfo');
+    return !!sessionStorage.getItem('userInfo');
   }
 
   logOut(){
     this.userInfo = null;
     this.isAuthenticated = false;
-    localStorage.removeItem('userInfo');
-    localStorage.removeItem("JWT_TOKEN");
+    sessionStorage.removeItem('userInfo');
+    sessionStorage.removeItem("JWT_TOKEN");
     this.router.navigateByUrl('/');
   }
 
   getLoginStatus(){
 
-    this.userInfo = localStorage.getItem('userInfo');
+    this.userInfo = sessionStorage.getItem('userInfo');
     if(this.userInfo){
       this.userInfo = JSON.parse(this.userInfo);
       return true;
@@ -81,12 +81,12 @@ export class HelperService {
       this.router.navigateByUrl('/dashboard');
     }
     else{
-      let forgotPassword = localStorage.getItem('forgotPassword');
+      let forgotPassword = sessionStorage.getItem('forgotPassword');
       if(!forgotPassword){
         return;
       }
       forgotPassword = JSON.parse(forgotPassword).userEmail;
-      localStorage.setItem('forgotPassword',JSON.stringify({userEmail:forgotPassword, otpValidated:true}));
+      sessionStorage.setItem('forgotPassword',JSON.stringify({userEmail:forgotPassword, otpValidated:true}));
       this.router.navigateByUrl('/forgot-password')
     }
   }
@@ -100,7 +100,7 @@ export class HelperService {
   }
 
   isJWTExpired(){
-    let token = localStorage.getItem('JWT_TOKEN');
+    let token = sessionStorage.getItem('JWT_TOKEN');
     if(!token) return true;
 
     let decoded = jwtDecode(token);
@@ -118,7 +118,7 @@ export class HelperService {
     this.userService.enableNotification(this.userInfo.userDetails).subscribe({
       next: (resp) => {
         this.stopLoader();
-        localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+        sessionStorage.setItem('userInfo', JSON.stringify(this.userInfo));
         // console.log(resp);
       },
       error: (err) => {
@@ -135,7 +135,7 @@ export class HelperService {
     this.userService.disableNotification(this.userInfo.userDetails).subscribe({
       next: (resp) => {
         this.stopLoader();
-        localStorage.setItem('userInfo', JSON.stringify(this.userInfo));
+        sessionStorage.setItem('userInfo', JSON.stringify(this.userInfo));
         // console.log(resp);
       },
       error: (err) => {
