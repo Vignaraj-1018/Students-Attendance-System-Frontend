@@ -28,7 +28,7 @@ export class AppComponent {
       // console.log("New Session");
       let data = {
         name:"Student Attendance Tracker",
-        url:"https://student-attendance-tracker.vercel.app"
+        url:"https://student-attendance-tracker.vignaraj.in"
       }
       this.userService.sendViewCount(data).subscribe({
         next:(resp:any)=>{
